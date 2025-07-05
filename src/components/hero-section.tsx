@@ -56,7 +56,7 @@ export function HeroSection() {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[calc(100vh-80px)] text-center px-4 py-16 md:py-24">
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-darkForeground mb-4 font-space-grotesk leading-tight">
-        Hi, I'm [Your Name]
+        Hi, I'm Raghav Singla
       </h1>
       <p className="text-2xl md:text-4xl lg:text-5xl text-darkForeground mb-8 font-inter">
         A <span ref={el} className="text-accentGreen"></span>
@@ -74,7 +74,7 @@ export function HeroSection() {
           className="border-darkBorder text-darkForeground hover:bg-darkBorder hover:text-accentGreen rounded-full px-8 py-3 text-lg font-bold transition-colors duration-300 bg-transparent"
           asChild
         >
-          <a href="/your-resume.pdf" download>
+          <a href="/Raghav_Resume.pdf" download>
             Download Resume
           </a>
         </Button>
