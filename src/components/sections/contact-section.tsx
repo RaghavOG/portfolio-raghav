@@ -1,11 +1,70 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { Linkedin, Github, Mail, Phone } from "lucide-react"
+import { useState } from "react"
 
 export function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Message sent successfully! I\'ll get back to you soon.'
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Failed to send message. Please try again.'
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Failed to send message. Please try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section id="contact" className="py-20 px-4 md:px-12 bg-black text-white min-h-screen">
       <div className="container mx-auto max-w-7xl">
@@ -93,15 +152,29 @@ export function ContactSection() {
               send a message
             </h3>
             
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {submitStatus.type && (
+                <div className={`p-4 rounded-lg border ${
+                  submitStatus.type === 'success' 
+                    ? 'bg-green-500/10 border-green-500/30 text-green-300' 
+                    : 'bg-red-500/10 border-red-500/30 text-red-300'
+                }`}>
+                  {submitStatus.message}
+                </div>
+              )}
+              
               <div>
                 <Label htmlFor="name" className="text-white/80 font-inter text-lg mb-2 block">
                   name
                 </Label>
                 <Input
                   id="name"
+                  name="name"
                   type="text"
                   placeholder="your name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
                   className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 h-12 font-inter"
                 />
               </div>
@@ -111,8 +184,12 @@ export function ContactSection() {
                 </Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="your@email.com"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
                   className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 h-12 font-inter"
                 />
               </div>
@@ -122,16 +199,21 @@ export function ContactSection() {
                 </Label>
                 <Textarea
                   id="message"
+                  name="message"
                   placeholder="your message..."
                   rows={6}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
                   className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 resize-none font-inter"
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full bg-white text-black hover:bg-white/90 h-12 text-lg font-medium transition-all duration-300 font-inter rounded-lg"
+                disabled={isSubmitting}
+                className="w-full bg-white text-black hover:bg-white/90 h-12 text-lg font-medium transition-all duration-300 font-inter rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                send message
+                {isSubmitting ? 'sending...' : 'send message'}
               </Button>
             </form>
           </div>
