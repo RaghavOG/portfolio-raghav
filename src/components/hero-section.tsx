@@ -15,10 +15,10 @@ export function HeroSection() {
     
     const typed = new Typed(el.current, {
       strings: [
-        "Full Stack Developer", 
-        "AI Engineer", 
-        "Problem Solver", 
-        "Tech Enthusiast"
+        "full stack development", 
+        "ai engineering", 
+        "problem solving", 
+        "tech innovation"
       ],
       typeSpeed: 80,
       backSpeed: 50,
@@ -67,85 +67,137 @@ export function HeroSection() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-6 md:px-12 max-w-6xl mx-auto">
-        {/* Greeting */}
-        {/* <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-6">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-white/80">Available for opportunities</span>
-          </div>
-        </div> */}
-
-        {/* Main Title */}
-        <h1 className={`text-4xl md:text-6xl lg:text-8xl font-bold mb-6 font-space-grotesk leading-tight mt-32 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-          <span className="text-white">Hi, I'm </span>
-          <span className="text-white">
-            Raghav Singla
-          </span>
-        </h1>
-
-        {/* Subtitle with Typed.js */}
-        <div className={`text-2xl md:text-4xl lg:text-5xl text-white/90 mb-8 font-inter min-h-[80px] flex items-center justify-center transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-          <span className="mr-4 text-white/70">I'm a</span>
-          <span ref={el} className="text-white font-bold"></span>
-        </div>
-
-        {/* Description */}
-        <p className={`text-lg md:text-xl text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed transform transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-          Passionate about creating innovative solutions that bridge the gap between 
-          cutting-edge technology and real-world applications. I specialize in building 
-          scalable web applications and AI-powered systems.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className={`flex flex-col sm:flex-row gap-4 mb-16 justify-center transform transition-all duration-1000 delay-900 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-          <Button
-            className="group relative overflow-hidden bg-white text-black hover:bg-white/90 rounded-full px-8 py-4 text-lg font-bold transition-all duration-300 shadow-lg shadow-white/25 hover:shadow-white/40 hover:shadow-xl hover:scale-105"
-            onClick={scrollToProjects}
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              <Eye className="h-5 w-5" />
-              View My Work
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-transparent translate-x-[-100%] transition-transform duration-700 group-hover:translate-x-[100%]"></div>
-          </Button>
+      <div className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto w-full">
+        {/* Asymmetric Split Layout */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-16 min-h-screen items-center justify-center">
           
-          <Button
-            variant="outline"
-            className="group border-2 border-white/20 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-4 text-lg font-bold transition-all duration-300 bg-transparent hover:scale-105"
-            asChild
-          >
-            <a href="/Raghav_Resume.pdf" download className="flex items-center gap-2">
-              <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
-              Download Resume
-            </a>
-          </Button>
-        </div>
+          {/* Left Side - Main Intro */}
+          <div className="space-y-6 md:space-y-8">
+            {/* Small Greeting */}
+            <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-white/70">available for opportunities</span>
+              </div>
+            </div>
 
-        {/* Social Links */}
-        <div className={`flex justify-center gap-6 mb-12 transform transition-all duration-1000 delay-1100 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-          <a 
-            href="https://github.com/RaghavOG" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="group p-3 rounded-full border border-white/20 hover:border-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-white/25"
-          >
-            <Github className="h-6 w-6 text-white/70 group-hover:text-white transition-colors duration-300" />
-          </a>
-          <a 
-            href="https://www.linkedin.com/in/singlaraghav" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="group p-3 rounded-full border border-white/20 hover:border-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-white/25"
-          >
-            <Linkedin className="h-6 w-6 text-white/70 group-hover:text-white transition-colors duration-300" />
-          </a>
-          <a 
-            href="mailto:04raghavsingla28@gmail.com"
-            className="group p-3 rounded-full border border-white/20 hover:border-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-white/25"
-          >
-            <Mail className="h-6 w-6 text-white/70 group-hover:text-white transition-colors duration-300" />
-          </a>
+            {/* Left Title */}
+            <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-space-grotesk leading-[0.85] text-left">
+                <span className="text-white/60 text-2xl md:text-3xl lg:text-4xl font-normal block mb-2">
+                  hello world,
+                </span>
+                <span className="text-white block">
+                  i'm raghav singla
+                </span>
+                <span className="text-white/80 block text-3xl md:text-4xl lg:text-5xl">
+                  passionate about
+                </span>
+              </h1>
+            </div>
+
+            {/* Description */}
+            <div className={`transform transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-lg">
+                creating innovative solutions that bridge the gap between 
+                cutting-edge technology and real-world applications.
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className={`flex flex-col sm:flex-row gap-4 transform transition-all duration-1000 delay-900 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <Button
+                className="group relative overflow-hidden bg-white text-black hover:bg-white/90 rounded-full px-8 py-4 text-base font-medium transition-all duration-300 shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-105"
+                onClick={scrollToProjects}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <Eye className="h-5 w-5" />
+                  view my work
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-transparent translate-x-[-100%] transition-transform duration-700 group-hover:translate-x-[100%]"></div>
+              </Button>
+              
+              <Button
+                variant="outline"
+                className="group border border-white/20 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-4 text-base font-medium transition-all duration-300 bg-transparent hover:scale-105"
+                asChild
+              >
+                <a href="/Raghav_Resume.pdf" download className="flex items-center gap-2">
+                  <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+                  download resume
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Side - Role & Skills */}
+          <div className="space-y-6 md:space-y-8 md:text-right flex flex-col justify-center">
+            {/* Subtitle with Typed.js */}
+            <div className={`transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-inter text-right">
+                <span className="text-white/60">specialized in </span>
+                <br />
+                <span ref={el} className="text-white font-medium"></span>
+              </div>
+            </div>
+
+            {/* Tech Stack Pills */}
+            <div className={`transform transition-all duration-1000 delay-800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <div className="flex flex-wrap gap-3 justify-end">
+                {['react', 'next.js', 'gen ai', 'python', 'ai/ml'].map((tech, index) => (
+                  <div 
+                    key={tech}
+                    className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-medium text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300 hover:scale-105"
+                  >
+                    {tech}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Stats/Info Cards */}
+            <div className={`grid grid-cols-2 gap-4 transform transition-all duration-1000 delay-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <div className="bg-white/5 border border-white/10 rounded-lg p-4 text-center hover:bg-white/10 transition-colors duration-300">
+                <div className="text-2xl font-bold text-white font-space-grotesk">1+</div>
+                <div className="text-sm text-white/60 font-inter">years experience</div>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-lg p-4 text-center hover:bg-white/10 transition-colors duration-300">
+                <div className="text-2xl font-bold text-white font-space-grotesk">10+</div>
+                <div className="text-sm text-white/60 font-inter">projects completed</div>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className={`transform transition-all duration-1000 delay-1100 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <div className="flex justify-center md:justify-end gap-4">
+                <a 
+                  href="https://github.com/RaghavOG" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group p-3 rounded-full border border-white/20 hover:border-white transition-all duration-300 hover:scale-110"
+                >
+                  <Github className="h-5 w-5 text-white/70 group-hover:text-white transition-colors duration-300" />
+                </a>
+                <a 
+                  href="https://www.linkedin.com/in/singlaraghav" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group p-3 rounded-full border border-white/20 hover:border-white transition-all duration-300 hover:scale-110"
+                >
+                  <Linkedin className="h-5 w-5 text-white/70 group-hover:text-white transition-colors duration-300" />
+                </a>
+                <a 
+                  href="mailto:04raghavsingla28@gmail.com"
+                  className="group p-3 rounded-full border border-white/20 hover:border-white transition-all duration-300 hover:scale-110"
+                >
+                  <Mail className="h-5 w-5 text-white/70 group-hover:text-white transition-colors duration-300" />
+                </a>
+              </div>
+              <div className="text-center md:text-right mt-4">
+                <span className="text-sm text-white/40 font-inter">let's create something amazing together</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -12,10 +12,10 @@ export function ContactSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            Get In Touch
+            get in touch
           </h2>
           <p className="text-xl md:text-2xl text-white/80 font-inter max-w-2xl leading-relaxed">
-            Let's discuss your next project or just say hello
+            let's discuss your next project or just say hello
           </p>
         </div>
 
@@ -24,7 +24,7 @@ export function ContactSection() {
           <div className="space-y-12">
             <div>
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-8 font-space-grotesk">
-                Contact Information
+                contact information
               </h3>
               
               <div className="space-y-6">
@@ -72,7 +72,7 @@ export function ContactSection() {
                 </a>
 
                 <a
-                  href="tel:+919466214133"
+                  href="tel:+9194XXXXXX33"
                   className="group flex items-center gap-4 p-4 border border-white/10 rounded-lg hover:border-white/30 hover:bg-white/5 transition-all duration-300"
                 >
                   <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-colors duration-300">
@@ -80,7 +80,7 @@ export function ContactSection() {
                   </div>
                   <div>
                     <p className="text-white font-medium font-inter">Phone</p>
-                    <p className="text-white/60 text-sm font-inter">+91 9466214133</p>
+                    <p className="text-white/60 text-sm font-inter">+91 94XXXXX133</p>
                   </div>
                 </a>
               </div>
@@ -90,24 +90,24 @@ export function ContactSection() {
           {/* Right Column - Contact Form */}
           <div className="space-y-8">
             <h3 className="text-3xl md:text-4xl font-bold text-white font-space-grotesk">
-              Send a Message
+              send a message
             </h3>
             
             <form className="space-y-6">
               <div>
                 <Label htmlFor="name" className="text-white/80 font-inter text-lg mb-2 block">
-                  Name
+                  name
                 </Label>
                 <Input
                   id="name"
                   type="text"
-                  placeholder="Your Name"
+                  placeholder="your name"
                   className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 h-12 font-inter"
                 />
               </div>
               <div>
                 <Label htmlFor="email" className="text-white/80 font-inter text-lg mb-2 block">
-                  Email
+                  email
                 </Label>
                 <Input
                   id="email"
@@ -118,11 +118,11 @@ export function ContactSection() {
               </div>
               <div>
                 <Label htmlFor="message" className="text-white/80 font-inter text-lg mb-2 block">
-                  Message
+                  message
                 </Label>
                 <Textarea
                   id="message"
-                  placeholder="Your message..."
+                  placeholder="your message..."
                   rows={6}
                   className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 resize-none font-inter"
                 />
@@ -131,7 +131,7 @@ export function ContactSection() {
                 type="submit"
                 className="w-full bg-white text-black hover:bg-white/90 h-12 text-lg font-medium transition-all duration-300 font-inter rounded-lg"
               >
-                Send Message
+                send message
               </Button>
             </form>
           </div>

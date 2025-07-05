@@ -44,10 +44,10 @@ export function ProjectsSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            Projects
+            projects
           </h2>
           <p className="text-xl md:text-2xl text-white/80 font-inter max-w-2xl leading-relaxed">
-            I worked on these projects as both a developer and designer, writing code to build them while designing in
+            i worked on these projects as both a developer and designer, writing code to build them while designing in
             Figma.
           </p>
         </div>

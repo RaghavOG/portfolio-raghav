@@ -5,7 +5,7 @@ export function EducationSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            Education
+            education
           </h2>
         </div>
 
@@ -20,14 +20,14 @@ export function EducationSection() {
             {/* University & Duration */}
             <div className="space-y-2">
               <h3 className="text-2xl md:text-3xl font-bold text-white font-space-grotesk leading-tight">
-                Chitkara University
+                chitkara university
               </h3>
               <div className="space-y-1">
                 <p className="text-lg text-white/80 font-inter font-medium">
-                  BE CSE - AI
+                  be cse - ai
                 </p>
                 <p className="text-sm text-white/60 font-inter">
-                  Aug 2023 - June 2027
+                  aug 2023 - june 2027
                 </p>
               </div>
             </div>
@@ -35,7 +35,7 @@ export function EducationSection() {
             {/* Description */}
             <div>
               <p className="text-lg text-white/70 font-inter leading-relaxed">
-                Pursuing a Bachelor of Engineering in Computer Science with a specialization in Artificial Intelligence.
+                pursuing a bachelor of engineering in computer science with a specialization in artificial intelligence.
               </p>
             </div>
           </div>

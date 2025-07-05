@@ -1,24 +1,24 @@
 const experiences = [
   {
-    title: "Fullstack Developer Intern",
-    company: "The Brain Burners Media",
-    duration: "Sept 2024 - Present",
+    title: "fullstack developer intern",
+    company: "the brain burners media",
+    duration: "sept 2024 - present",
     description:
-      "Led teams on multiple full-stack projects, collaborated with cross-functional teams, and contributed to scalable web applications by ensuring code quality, efficient development and deployment.",
+      "led teams on multiple full-stack projects, collaborated with cross-functional teams, and contributed to scalable web applications by ensuring code quality, efficient development and deployment.",
   },
   {
-    title: "Technical Team Member",
-    company: "IEEE-CIET",
-    duration: "Sept 2024 - Present",
+    title: "technical team member",
+    company: "ieee-ciet",
+    duration: "sept 2024 - present",
     description:
-      "Leading development of IEEE-CIET's official website using Next.js and modern web technologies and Collaborating with team members to organize technical workshops and events.",
+      "leading development of ieee-ciet's official website using next.js and modern web technologies and collaborating with team members to organize technical workshops and events.",
   },
   {
-    title: "Web Team Member",
-    company: "Open Source Chandigarh",
-    duration: "Jan 2025 - Present",
+    title: "web team member",
+    company: "open source chandigarh",
+    duration: "jan 2025 - present",
     description:
-      "Collaborating with team members on various web development initiatives and Participating in community events.",
+      "collaborating with team members on various web development initiatives and participating in community events.",
   },
 ]
 
@@ -29,7 +29,7 @@ export function ExperienceSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            Experience
+            experience
           </h2>
         </div>
 

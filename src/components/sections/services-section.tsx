@@ -1,27 +1,27 @@
 const services = [
   {
     number: "01.",
-    title: "Web Design",
+    title: "web design",
     description:
-      "I design clean, elegant, and user-friendly websites. Interfaces that feel effortless while maintaining strong visual appeal.",
+      "i design clean, elegant, and user-friendly websites. interfaces that feel effortless while maintaining strong visual appeal.",
   },
   {
     number: "02.",
-    title: "Web Development",
+    title: "web development",
     description:
-      "I write clean, maintainable code using TypeScript and ESLint. With Next.js or React and Tailwind, I build reusable components for efficient development.",
+      "i write clean, maintainable code using typescript and eslint. with next.js or react and tailwind, i build reusable components for efficient development.",
   },
   {
     number: "03.",
-    title: "Chrome extension Development",
+    title: "chrome extension development",
     description:
-      "Sometimes, you may need to perform repetitive tasks on certain websites. I'm here to automate your workflow and save you time.",
+      "sometimes, you may need to perform repetitive tasks on certain websites. i'm here to automate your workflow and save you time.",
   },
   {
     number: "04.",
-    title: "Hosting & Cloudflare",
+    title: "hosting & cloudflare",
     description:
-      "I can host your websites on all major hosting providers and set up Cloudflare to enhance speed and security.",
+      "i can host your websites on all major hosting providers and set up cloudflare to enhance speed and security.",
   },
 ]
 
@@ -32,10 +32,10 @@ export function ServicesSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            Services
+            services
           </h2>
           <p className="text-xl md:text-2xl text-white/80 font-inter max-w-2xl leading-relaxed">
-            I offer a range of services focused on web solutions—whether it's brand building or work automation
+            i offer a range of services focused on web solutions—whether it's brand building or work automation
           </p>
         </div>
 

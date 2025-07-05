@@ -1,9 +1,9 @@
 const skills = {
-  Languages: ["Python", "C", "CPP", "Java", "Javascript", "Typescript"],
-  Frontend: ["ReactJs", "ViteJs", "NextJs", "TailwindCSS", "SCSS", "Bootstrap", "GSAP", "Framer Motion"],
-  Backend: ["NodeJs", "ExpressJs", "FireBase", "PrismaORM", "Cloudinary", "DrizzleORM", "Redis"],
-  Database: ["MySQL", "PostgreSQL", "MongoDB"],
-  "DevOps/Other": ["Git", "GitHub", "Docker", "Notion", "Nginx"],
+  languages: ["python", "c", "cpp", "java", "javascript", "typescript"],
+  frontend: ["reactjs", "vitejs", "nextjs", "tailwindcss", "scss", "bootstrap", "gsap", "framer motion"],
+  backend: ["nodejs", "expressjs", "firebase", "prismaorm", "cloudinary", "drizzleorm", "redis"],
+  database: ["mysql", "postgresql", "mongodb"],
+  "devops/other": ["git", "github", "docker", "notion", "nginx"],
 }
 
 export function SkillsSection() {
@@ -13,7 +13,7 @@ export function SkillsSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            My Skills
+            my skills
           </h2>
         </div>
 
