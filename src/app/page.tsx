@@ -9,10 +9,14 @@ import { ContactSection } from "@/components/sections/contact-section";
 import { EducationSection } from "@/components/sections/education-section"
 import { Component as BgGradient } from "@/components/ui/bg-gradient"
 import { ServicesSection } from "@/components/sections/services-section";
+import { SplashCursor } from "@/components/ui/splash-cursor"
+
+
 
 export default function Home() {
   return (
     <main className="relative">
+      <SplashCursor />
       {/* <Navbar /> */}
       <DotBackground className="min-h-screen">
         <HeroSection />
