@@ -1,3 +1,8 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { useState, useCallback } from "react"
+import Preloader from "@/components/ui/preloader"
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { DotBackground } from "@/components/dot-background";
@@ -13,41 +18,53 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import Footer from "@/components/footer";
 
-
-
 export default function Home() {
+  const [showPreloader, setShowPreloader] = useState(true)
+
+  const handleComplete = useCallback(() => {
+    setShowPreloader(false)
+  }, [])
+
   return (
-    <main className="relative">
-      <SplashCursor />
-      <Navbar />
-      <DotBackground className="min-h-screen">
-        <HeroSection />
-      </DotBackground>
-      <section id="about">
-        <AboutSection />
-      </section>
-      <section id="services">
-        <ServicesSection />
-      </section>
-      <section id="skills">
-        <SkillsSection />
-      </section>
-      <section id="projects">
-        <ProjectsSection />
-      </section>
-      <section id="experience">
-        <ExperienceSection />
-      </section>
-      <section id="testimonials">
-        <TestimonialsSection />
-      </section>
-      <section id="education">
-        <EducationSection />
-      </section>
-      <section id="contact">
-        <ContactSection />
-      </section>
-      <Footer />
-    </main>
+    <>
+      {showPreloader && <Preloader onComplete={handleComplete} />}
+      <motion.main 
+        className="relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showPreloader ? 0 : 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <SplashCursor />
+        <Navbar />
+        <DotBackground className="min-h-screen">
+          <HeroSection />
+        </DotBackground>
+        <section id="about">
+          <AboutSection />
+        </section>
+        <section id="services">
+          <ServicesSection />
+        </section>
+        <section id="skills">
+          <SkillsSection />
+        </section>
+        <section id="projects">
+          <ProjectsSection />
+        </section>
+        <section id="experience">
+          <ExperienceSection />
+        </section>
+        <section id="testimonials">
+          <TestimonialsSection />
+        </section>
+        <section id="education">
+          <EducationSection />
+        </section>
+        <section id="contact">
+          <ContactSection />
+        </section>
+        <Footer />
+      </motion.main>
+    </>
   );
 }
