@@ -10,7 +10,7 @@ export function HeroSection() {
 
   useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: ["Full Stack Engineer", "AI Engineer", "Software Developer", "Web Designer"],
+      strings: ["Full Stack Developer", "AI Engineer"],
       typeSpeed: 50,
       backSpeed: 30,
       loop: true,
@@ -59,7 +59,7 @@ export function HeroSection() {
         Hi, I'm Raghav Singla
       </h1>
       <p className="text-2xl md:text-4xl lg:text-5xl text-darkForeground mb-8 font-inter">
-        A <span ref={el} className="text-accentGreen"></span>
+         <span ref={el} className="text-accentGreen"></span>
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 mb-20">
@@ -81,7 +81,7 @@ export function HeroSection() {
       </div>
 
       {/* Animated bars at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 md:gap-4 px-4 pb-4 overflow-hidden">
+      {/* <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 md:gap-4 px-4 pb-4 overflow-hidden">
         {barHeights.map((heightClass, index) => (
           <div
             key={index}
@@ -91,7 +91,7 @@ export function HeroSection() {
             }}
           ></div>
         ))}
-      </div>
+      </div> */}
 
       <style jsx global>{`
         @keyframes bar-animation {
