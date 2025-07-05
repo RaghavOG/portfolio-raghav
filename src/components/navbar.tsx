@@ -1,95 +1,217 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Download } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Education", href: "#education" }, // Added Education
-  { name: "Contact", href: "#contact" },
+  { name: "ABOUT", href: "#about" },
+  { name: "SKILLS", href: "#skills" },
+  { name: "PROJECTS", href: "#projects" },
+  { name: "EXPERIENCE", href: "#experience" },
+  { name: "EDUCATION", href: "#education" },
+  { name: "CONTACT", href: "#contact" },
 ]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const handleSmoothScroll = (href: string) => {
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+      }
+    }
+    setIsOpen(false)
+  }
 
   return (
-    <nav className="relative z-50 w-full bg-darkBackground py-4 px-6 md:px-12 border-b border-darkBorder">
-      <div className="container mx-auto flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-darkForeground font-space-grotesk">
-          Raghav Singla
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-darkForeground hover:text-accentGreen transition-colors duration-300 font-inter"
+    <nav 
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out",
+        scrolled 
+          ? "bg-black/95 backdrop-blur-md border-b border-darkBorder/50 shadow-lg" 
+          : "bg-black/80 backdrop-blur-sm"
+      )}
+    >
+      <div className="container mx-auto px-6 md:px-12 py-4">
+        <div className="flex items-center justify-between w-full">
+          {/* Logo */}
+          <div className="flex-1">
+            <Link 
+              href="/" 
+              className="relative group inline-block"
             >
-              {link.name}
+              <span className="text-2xl font-bold text-darkForeground font-space-grotesk tracking-tight">
+                Raghav Singla
+              </span>
+              <div className="absolute -bottom-1 left-0 h-0.5 w-0 bg-accentGreen transition-all duration-300 group-hover:w-full"></div>
             </Link>
-          ))}
-          <Button
-            className="bg-accentGreen text-darkBackground hover:bg-accentGreen/80 rounded-full px-6 py-2 font-bold transition-colors duration-300"
-            asChild
-          >
-            <a href="/Raghav_Resume.pdf" download>
-              Download Resume
-            </a>
-          </Button>
-        </div>
+          </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="text-darkForeground">
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            <span className="sr-only">Toggle navigation</span>
-          </Button>
+          {/* Centered Desktop Navigation */}
+          <div className="hidden md:flex items-center justify-center flex-1">
+            <div className="flex items-center space-x-1">
+              {navLinks.map((link, index) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleSmoothScroll(link.href)
+                  }}
+                  className={cn(
+                    "relative px-4 py-2 text-sm font-medium text-darkForeground/80 transition-all duration-300 rounded-full hover:text-accentGreen hover:bg-accentGreen/10 font-inter",
+                    "before:absolute before:inset-0 before:rounded-full before:bg-accentGreen/5 before:scale-0 before:transition-transform before:duration-300",
+                    "hover:before:scale-100 cursor-pointer group"
+                  )}
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  <span className="relative z-10">{link.name}</span>
+                  {/* Animated underline */}
+                  <div className="absolute bottom-1 left-1/2 h-0.5 w-0 bg-accentGreen transition-all duration-300 ease-out group-hover:w-8 group-hover:left-1/2 transform -translate-x-1/2"></div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Resume Button */}
+          <div className="flex-1 flex justify-end">
+            <div className="hidden md:block">
+              <Button
+                className={cn(
+                  "group relative overflow-hidden bg-accentGreen text-darkBackground hover:bg-accentGreen/90",
+                  "rounded-full px-6 py-2.5 font-semibold transition-all duration-300 font-inter",
+                  "shadow-lg shadow-accentGreen/25 hover:shadow-accentGreen/40 hover:shadow-xl",
+                  "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent",
+                  "before:translate-x-[-100%] before:transition-transform before:duration-700 hover:before:translate-x-[100%]"
+                )}
+                asChild
+              >
+                <a href="/Raghav_Resume.pdf" download className="flex items-center gap-2">
+                  <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                  <span>Resume</span>
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsOpen(!isOpen)} 
+              className={cn(
+                "relative text-darkForeground hover:text-accentGreen hover:bg-accentGreen/10 rounded-full",
+                "transition-all duration-300 overflow-hidden",
+                isOpen && "bg-accentGreen/10 text-accentGreen"
+              )}
+            >
+              <div className="relative">
+                <Menu className={cn("h-6 w-6 transition-all duration-300", isOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100")} />
+                <X className={cn("h-6 w-6 absolute top-0 left-0 transition-all duration-300", isOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0")} />
+              </div>
+              <span className="sr-only">Toggle navigation</span>
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "fixed inset-x-0 top-0 z-40 bg-darkBackground transition-transform duration-300 ease-in-out md:hidden",
-          isOpen ? "translate-y-0" : "-translate-y-full",
+          "fixed inset-x-0 top-0 z-40 bg-black/98 backdrop-blur-xl transition-all duration-500 ease-in-out md:hidden",
+          "border-b border-darkBorder/50",
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
         )}
       >
-        <div className="flex justify-end p-6">
-          <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-darkForeground">
+        {/* Mobile Header */}
+        <div className="flex items-center justify-between p-6 border-b border-darkBorder/30">
+          <span className="text-xl font-bold text-darkForeground font-space-grotesk">
+            Raghav Singla
+          </span>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setIsOpen(false)} 
+            className="text-darkForeground hover:text-accentGreen hover:bg-accentGreen/10 rounded-full"
+          >
             <X className="h-6 w-6" />
             <span className="sr-only">Close navigation</span>
           </Button>
         </div>
-        <nav className="flex flex-col items-center space-y-6 py-8">
-          {navLinks.map((link) => (
+
+        {/* Mobile Navigation Links */}
+        <nav className="flex flex-col py-8 px-6">
+          {navLinks.map((link, index) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-darkForeground text-xl hover:text-accentGreen transition-colors duration-300 font-inter"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => {
+                e.preventDefault()
+                handleSmoothScroll(link.href)
+              }}
+              className={cn(
+                "group flex items-center justify-between py-4 text-lg text-darkForeground hover:text-accentGreen",
+                "transition-all duration-300 font-inter border-b border-darkBorder/20 last:border-b-0",
+                "hover:bg-accentGreen/5 hover:px-4 rounded-lg cursor-pointer"
+              )}
+              style={{
+                animationDelay: `${index * 0.1}s`
+              }}
             >
-              {link.name}
+              <span>{link.name}</span>
+              <div className="w-0 h-0.5 bg-accentGreen transition-all duration-300 group-hover:w-8"></div>
             </Link>
           ))}
-          <Button
-            className="bg-accentGreen text-darkBackground hover:bg-accentGreen/80 rounded-full px-8 py-3 text-lg font-bold transition-colors duration-300"
-            asChild
-            onClick={() => setIsOpen(false)}
-          >
-            <a href="/Raghav_Resume.pdf" download>
-              Download Resume
-            </a>
-          </Button>
+          
+          {/* Mobile Resume Button */}
+          <div className="mt-8 pt-6 border-t border-darkBorder/30">
+            <Button
+              className={cn(
+                "w-full group relative overflow-hidden bg-accentGreen text-darkBackground hover:bg-accentGreen/90",
+                "rounded-full py-4 text-lg font-semibold transition-all duration-300 font-inter",
+                "shadow-lg shadow-accentGreen/25 hover:shadow-accentGreen/40 hover:shadow-xl",
+                "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent",
+                "before:translate-x-[-100%] before:transition-transform before:duration-700 hover:before:translate-x-[100%]"
+              )}
+              asChild
+              onClick={() => setIsOpen(false)}
+            >
+              <a href="/Raghav_Resume.pdf" download className="flex items-center justify-center gap-3">
+                <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+                <span>Download Resume</span>
+              </a>
+            </Button>
+          </div>
         </nav>
       </div>
+
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
     </nav>
   )
 }
