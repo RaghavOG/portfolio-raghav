@@ -9,6 +9,7 @@ import { ContactSection } from "@/components/sections/contact-section";
 import { EducationSection } from "@/components/sections/education-section"
 import { Component as BgGradient } from "@/components/ui/bg-gradient"
 import { ServicesSection } from "@/components/sections/services-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import Footer from "@/components/footer";
 
@@ -36,6 +37,9 @@ export default function Home() {
       </section>
       <section id="experience">
         <ExperienceSection />
+      </section>
+      <section id="testimonials">
+        <TestimonialsSection />
       </section>
       <section id="education">
         <EducationSection />

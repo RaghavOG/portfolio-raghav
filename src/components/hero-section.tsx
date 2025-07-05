@@ -23,9 +23,10 @@ export function HeroSection() {
       typeSpeed: 80,
       backSpeed: 50,
       loop: true,
-      cursorChar: "|",
+      cursorChar: "_",
       backDelay: 2000,
       startDelay: 500,
+
     })
 
     return () => {
