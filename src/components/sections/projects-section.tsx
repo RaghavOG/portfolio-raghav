@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import Link from "next/link"
 import Image from "next/image"
 import { ExternalLink } from "lucide-react"
@@ -40,53 +39,55 @@ const projects = [
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-20 px-4 md:px-12 text-left">
-      <div className="container mx-auto max-w-6xl">
-        <h2 className="text-5xl font-bold text-darkForeground mb-4 font-space-grotesk relative inline-block">
-          Projects
-          <span className="absolute left-0 bottom-0 h-1 w-full bg-accentGreen opacity-50"></span>
-        </h2>
-        <p className="text-xl md:text-2xl text-darkForeground mb-16 font-inter max-w-2xl">
-          I worked on these projects as both a developer and designer, writing code to build them while designing in
-          Figma.
-        </p>
+    <section id="projects" className="py-20 px-4 md:px-12 bg-black text-white min-h-screen">
+      <div className="container mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-20">
+          <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
+            Projects
+          </h2>
+          <p className="text-xl md:text-2xl text-white/80 font-inter max-w-2xl leading-relaxed">
+            I worked on these projects as both a developer and designer, writing code to build them while designing in
+            Figma.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {projects.map((project, index) => (
-            <Card
+            <div
               key={index}
-              className="bg-darkBackground border-darkBorder text-darkForeground hover:border-accentGreen transition-colors duration-300 flex flex-col"
+              className="group bg-white/5 border border-white/10 rounded-lg overflow-hidden hover:border-white/30 hover:bg-white/10 transition-all duration-300"
             >
-              <CardHeader className="pb-0">
-                <p className="text-sm uppercase text-darkForeground/70 font-inter mb-2">{project.category}</p>
-                <div className="relative w-full h-60 bg-darkBorder rounded-md overflow-hidden mb-4">
+              <div className="p-0">
+                <p className="text-sm uppercase text-white/60 font-inter mb-4 px-6 pt-6">{project.category}</p>
+                <div className="relative w-full h-60 bg-white/10 overflow-hidden mb-4 mx-6" style={{width: 'calc(100% - 3rem)'}}>
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
                     layout="fill"
                     objectFit="cover"
-                    className="transition-transform duration-300 hover:scale-105"
+                    className="transition-transform duration-300 group-hover:scale-105 rounded-md"
                   />
                   <Link
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute top-4 right-4 bg-darkBackground/50 p-2 rounded-full text-darkForeground hover:text-accentGreen transition-colors duration-300"
+                    className="absolute top-4 right-4 bg-black/50 p-2 rounded-full text-white hover:bg-black/70 transition-colors duration-300"
                     aria-label={`View ${project.title} project`}
                   >
                     <ExternalLink className="h-5 w-5" />
                   </Link>
                 </div>
-              </CardHeader>
-              <CardContent className="flex-grow flex flex-col justify-between pt-4">
+              </div>
+              <div className="p-6 pt-0">
                 <div>
-                  <p className="text-4xl font-bold text-darkForeground mb-4 font-space-grotesk">
+                  <p className="text-4xl font-bold text-white mb-4 font-space-grotesk">
                     {(index + 1).toString().padStart(2, "0")}.
                   </p>
-                  <p className="text-lg text-darkForeground leading-relaxed font-inter">{project.description}</p>
+                  <p className="text-lg text-white/70 leading-relaxed font-inter">{project.description}</p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

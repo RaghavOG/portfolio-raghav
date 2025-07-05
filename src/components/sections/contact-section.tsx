@@ -7,82 +7,135 @@ import { Linkedin, Github, Mail, Phone } from "lucide-react"
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-20 px-4 md:px-12 text-center">
-      <div className="container mx-auto max-w-3xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-darkForeground mb-12 font-space-grotesk">Get In Touch</h2>
-
-        <div className="flex flex-wrap justify-center gap-6 mb-12">
-          <Link
-            href="https://www.linkedin.com/in/singlaraghav"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-darkForeground hover:text-accentGreen transition-colors duration-300 font-inter"
-          >
-            <Linkedin className="h-6 w-6" /> LinkedIn
-          </Link>
-          <Link
-            href="https://github.com/RaghavOG"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-darkForeground hover:text-accentGreen transition-colors duration-300 font-inter"
-          >
-            <Github className="h-6 w-6" /> GitHub
-          </Link>
-          <a
-            href="mailto:04raghavsingla28@gmail.com"
-            className="flex items-center gap-2 text-darkForeground hover:text-accentGreen transition-colors duration-300 font-inter"
-          >
-            <Mail className="h-6 w-6" /> 04raghavsingla28@gmail.com
-          </a>
-          <a
-            href="tel:+919466214133"
-            className="flex items-center gap-2 text-darkForeground hover:text-accentGreen transition-colors duration-300 font-inter"
-          >
-            <Phone className="h-6 w-6" /> +91 9466214133
-          </a>
+    <section id="contact" className="py-20 px-4 md:px-12 bg-black text-white min-h-screen">
+      <div className="container mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-20">
+          <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
+            Get In Touch
+          </h2>
+          <p className="text-xl md:text-2xl text-white/80 font-inter max-w-2xl leading-relaxed">
+            Let's discuss your next project or just say hello
+          </p>
         </div>
 
-        <form className="space-y-6 text-left">
-          <div>
-            <Label htmlFor="name" className="text-darkForeground font-inter">
-              Name
-            </Label>
-            <Input
-              id="name"
-              type="text"
-              placeholder="Your Name"
-              className="bg-darkBackground border-darkBorder text-darkForeground focus:ring-accentGreen focus:border-accentGreen mt-1 font-inter"
-            />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          {/* Left Column - Contact Info */}
+          <div className="space-y-12">
+            <div>
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-8 font-space-grotesk">
+                Contact Information
+              </h3>
+              
+              <div className="space-y-6">
+                <Link
+                  href="https://www.linkedin.com/in/singlaraghav"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 p-4 border border-white/10 rounded-lg hover:border-white/30 hover:bg-white/5 transition-all duration-300"
+                >
+                  <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-colors duration-300">
+                    <Linkedin className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium font-inter">LinkedIn</p>
+                    <p className="text-white/60 text-sm font-inter">singlaraghav</p>
+                  </div>
+                </Link>
+
+                <Link
+                  href="https://github.com/RaghavOG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 p-4 border border-white/10 rounded-lg hover:border-white/30 hover:bg-white/5 transition-all duration-300"
+                >
+                  <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-colors duration-300">
+                    <Github className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium font-inter">GitHub</p>
+                    <p className="text-white/60 text-sm font-inter">RaghavOG</p>
+                  </div>
+                </Link>
+
+                <a
+                  href="mailto:04raghavsingla28@gmail.com"
+                  className="group flex items-center gap-4 p-4 border border-white/10 rounded-lg hover:border-white/30 hover:bg-white/5 transition-all duration-300"
+                >
+                  <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-colors duration-300">
+                    <Mail className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium font-inter">Email</p>
+                    <p className="text-white/60 text-sm font-inter">04raghavsingla28@gmail.com</p>
+                  </div>
+                </a>
+
+                <a
+                  href="tel:+919466214133"
+                  className="group flex items-center gap-4 p-4 border border-white/10 rounded-lg hover:border-white/30 hover:bg-white/5 transition-all duration-300"
+                >
+                  <div className="bg-white/10 p-3 rounded-lg group-hover:bg-white/20 transition-colors duration-300">
+                    <Phone className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium font-inter">Phone</p>
+                    <p className="text-white/60 text-sm font-inter">+91 9466214133</p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-          <div>
-            <Label htmlFor="email" className="text-darkForeground font-inter">
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="your@email.com"
-              className="bg-darkBackground border-darkBorder text-darkForeground focus:ring-accentGreen focus:border-accentGreen mt-1 font-inter"
-            />
+
+          {/* Right Column - Contact Form */}
+          <div className="space-y-8">
+            <h3 className="text-3xl md:text-4xl font-bold text-white font-space-grotesk">
+              Send a Message
+            </h3>
+            
+            <form className="space-y-6">
+              <div>
+                <Label htmlFor="name" className="text-white/80 font-inter text-lg mb-2 block">
+                  Name
+                </Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Your Name"
+                  className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 h-12 font-inter"
+                />
+              </div>
+              <div>
+                <Label htmlFor="email" className="text-white/80 font-inter text-lg mb-2 block">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 h-12 font-inter"
+                />
+              </div>
+              <div>
+                <Label htmlFor="message" className="text-white/80 font-inter text-lg mb-2 block">
+                  Message
+                </Label>
+                <Textarea
+                  id="message"
+                  placeholder="Your message..."
+                  rows={6}
+                  className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 transition-all duration-300 resize-none font-inter"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full bg-white text-black hover:bg-white/90 h-12 text-lg font-medium transition-all duration-300 font-inter rounded-lg"
+              >
+                Send Message
+              </Button>
+            </form>
           </div>
-          <div>
-            <Label htmlFor="message" className="text-darkForeground font-inter">
-              Message
-            </Label>
-            <Textarea
-              id="message"
-              placeholder="Your message..."
-              rows={5}
-              className="bg-darkBackground border-darkBorder text-darkForeground focus:ring-accentGreen focus:border-accentGreen mt-1 font-inter"
-            />
-          </div>
-          <Button
-            type="submit"
-            className="w-full bg-accentGreen text-darkBackground hover:bg-accentGreen/80 rounded-full px-8 py-3 text-lg font-bold transition-colors duration-300 font-inter"
-          >
-            Send Message
-          </Button>
-        </form>
+        </div>
       </div>
     </section>
   )
