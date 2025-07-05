@@ -19,11 +19,18 @@ const navLinks = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
+      
+      // Calculate scroll progress
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = (window.scrollY / totalHeight) * 100
+      setScrollProgress(Math.min(progress, 100))
     }
+    
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -63,7 +70,7 @@ export function Navbar() {
               className="relative group inline-block"
             >
               <span className="text-2xl font-bold text-white font-space-grotesk tracking-tight">
-                Raghav Singla
+                Portfolio
               </span>
               <div className="absolute -bottom-1 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full"></div>
             </Link>
@@ -230,6 +237,14 @@ export function Navbar() {
           onClick={() => setIsOpen(false)}
         />
       )}
+      
+      {/* Scroll Progress Bar */}
+      {/* <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10">
+        <div 
+          className="h-full bg-white transition-all duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div> */}
     </nav>
   )
 }

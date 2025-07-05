@@ -16,6 +16,8 @@ import { Component as BgGradient } from "@/components/ui/bg-gradient"
 import { ServicesSection } from "@/components/sections/services-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { SplashCursor } from "@/components/ui/splash-cursor"
+import { BackToTop } from "@/components/ui/back-to-top"
+import { SectionIndicators } from "@/components/ui/section-indicators"
 import Footer from "@/components/footer";
 
 export default function Home() {
@@ -35,6 +37,8 @@ export default function Home() {
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <SplashCursor />
+        <SectionIndicators />
+        <BackToTop />
         <Navbar />
         <DotBackground className="min-h-screen">
           <HeroSection />
@@ -54,9 +58,9 @@ export default function Home() {
         <section id="experience">
           <ExperienceSection />
         </section>
-        <section id="testimonials">
+        {/* <section id="testimonials">
           <TestimonialsSection />
-        </section>
+        </section> */}
         <section id="education">
           <EducationSection />
         </section>
