@@ -68,7 +68,7 @@ export function HeroSection() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto w-full">
+      <div className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto w-full mt-35 md:mt-6">
         {/* Asymmetric Split Layout */}
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 min-h-screen items-center justify-center">
           
@@ -143,7 +143,7 @@ export function HeroSection() {
             </div>
 
             {/* Tech Stack Pills */}
-            <div className={`transform transition-all duration-1000 delay-800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+            {/* <div className={`transform transition-all duration-1000 delay-800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <div className="flex flex-wrap gap-3 justify-end">
                 {['react', 'next.js', 'gen ai', 'python', 'ai/ml'].map((tech, index) => (
                   <div 
@@ -154,7 +154,7 @@ export function HeroSection() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Stats/Info Cards */}
             <div className={`grid grid-cols-2 gap-4 transform transition-all duration-1000 delay-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
