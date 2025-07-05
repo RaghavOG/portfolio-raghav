@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Download } from "lucide-react"
+import { Download } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
   { name: "ABOUT", href: "#about" },
+  { name: "SERVICES", href: "#services" },
   { name: "SKILLS", href: "#skills" },
   { name: "PROJECTS", href: "#projects" },
   { name: "EXPERIENCE", href: "#experience" },
@@ -61,10 +62,10 @@ export function Navbar() {
               href="/" 
               className="relative group inline-block"
             >
-              <span className="text-2xl font-bold text-darkForeground font-space-grotesk tracking-tight">
+              <span className="text-2xl font-bold text-white font-space-grotesk tracking-tight">
                 Raghav Singla
               </span>
-              <div className="absolute -bottom-1 left-0 h-0.5 w-0 bg-accentGreen transition-all duration-300 group-hover:w-full"></div>
+              <div className="absolute -bottom-1 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full"></div>
             </Link>
           </div>
 
@@ -80,7 +81,7 @@ export function Navbar() {
                     handleSmoothScroll(link.href)
                   }}
                   className={cn(
-                    "relative px-4 py-3 text-sm font-medium text-darkForeground/90 transition-all duration-300 hover:text-accentGreen font-inter group cursor-pointer"
+                    "relative px-4 py-3 text-sm font-medium text-white/80 transition-all duration-300 hover:text-white font-inter group cursor-pointer"
                   )}
                   style={{
                     animationDelay: `${index * 0.1}s`
@@ -88,7 +89,7 @@ export function Navbar() {
                 >
                   <span className="relative z-10">{link.name}</span>
                   {/* Animated underline */}
-                  <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-accentGreen transition-all duration-300 ease-out group-hover:w-full"></div>
+                  <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-white transition-all duration-300 ease-out group-hover:w-full"></div>
                 </Link>
               ))}
             </div>
@@ -99,10 +100,10 @@ export function Navbar() {
             <div className="hidden md:block">
               <Button
                 className={cn(
-                  "group relative overflow-hidden bg-accentGreen text-black hover:bg-accentGreen/90",
+                  "group relative overflow-hidden bg-white text-black hover:bg-white/90",
                   "rounded-full px-6 py-2.5 font-semibold transition-all duration-300 font-inter",
-                  "shadow-lg shadow-accentGreen/25 hover:shadow-accentGreen/40 hover:shadow-xl hover:scale-105",
-                  "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent",
+                  "shadow-lg shadow-white/25 hover:shadow-white/40 hover:shadow-xl hover:scale-105",
+                  "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-black/10 before:to-transparent",
                   "before:translate-x-[-100%] before:transition-transform before:duration-700 hover:before:translate-x-[100%]"
                 )}
                 asChild
@@ -115,21 +116,32 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button with Animated Hamburger */}
           <div className="md:hidden">
             <Button 
               variant="ghost" 
               size="icon" 
               onClick={() => setIsOpen(!isOpen)} 
               className={cn(
-                "relative text-darkForeground hover:text-accentGreen hover:bg-accentGreen/10 rounded-full",
+                "relative text-white hover:text-white hover:bg-white/10 rounded-full p-3",
                 "transition-all duration-300 overflow-hidden",
-                isOpen && "bg-accentGreen/10 text-accentGreen"
+                isOpen && "bg-white/10 text-white"
               )}
             >
-              <div className="relative">
-                <Menu className={cn("h-6 w-6 transition-all duration-300", isOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100")} />
-                <X className={cn("h-6 w-6 absolute top-0 left-0 transition-all duration-300", isOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0")} />
+              <div className="relative w-6 h-6 flex flex-col justify-center items-center">
+                {/* Animated Hamburger Lines */}
+                <span className={cn(
+                  "block absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out",
+                  isOpen ? "rotate-45 translate-y-0" : "-translate-y-2"
+                )} />
+                <span className={cn(
+                  "block absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out",
+                  isOpen ? "opacity-0" : "opacity-100"
+                )} />
+                <span className={cn(
+                  "block absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out",
+                  isOpen ? "-rotate-45 translate-y-0" : "translate-y-2"
+                )} />
               </div>
               <span className="sr-only">Toggle navigation</span>
             </Button>
@@ -147,16 +159,20 @@ export function Navbar() {
       >
         {/* Mobile Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/10">
-          <span className="text-xl font-bold text-darkForeground font-space-grotesk">
+          <span className="text-xl font-bold text-white font-space-grotesk">
             Raghav Singla
           </span>
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={() => setIsOpen(false)} 
-            className="text-darkForeground hover:text-accentGreen hover:bg-accentGreen/10 rounded-full"
+            className="text-white hover:text-white hover:bg-white/10 rounded-full"
           >
-            <X className="h-6 w-6" />
+            <div className="relative w-6 h-6 flex flex-col justify-center items-center">
+              {/* X Icon */}
+              <span className="block absolute h-0.5 w-6 bg-current transform rotate-45" />
+              <span className="block absolute h-0.5 w-6 bg-current transform -rotate-45" />
+            </div>
             <span className="sr-only">Close navigation</span>
           </Button>
         </div>
@@ -172,16 +188,16 @@ export function Navbar() {
                 handleSmoothScroll(link.href)
               }}
               className={cn(
-                "group flex items-center justify-between py-4 text-lg text-darkForeground hover:text-accentGreen",
+                "group flex items-center justify-between py-4 text-lg text-white/80 hover:text-white",
                 "transition-all duration-300 font-inter border-b border-white/10 last:border-b-0",
-                "hover:bg-accentGreen/5 hover:px-4 rounded-lg cursor-pointer"
+                "hover:bg-white/5 hover:px-4 rounded-lg cursor-pointer"
               )}
               style={{
                 animationDelay: `${index * 0.1}s`
               }}
             >
               <span>{link.name}</span>
-              <div className="w-0 h-0.5 bg-accentGreen transition-all duration-300 group-hover:w-8"></div>
+              <div className="w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-8"></div>
             </Link>
           ))}
           
@@ -189,10 +205,10 @@ export function Navbar() {
           <div className="mt-6 pt-6 border-t border-white/10">
             <Button
               className={cn(
-                "w-full group relative overflow-hidden bg-accentGreen text-black hover:bg-accentGreen/90",
+                "w-full group relative overflow-hidden bg-white text-black hover:bg-white/90",
                 "rounded-full py-4 text-lg font-semibold transition-all duration-300 font-inter",
-                "shadow-lg shadow-accentGreen/25 hover:shadow-accentGreen/40 hover:shadow-xl",
-                "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent",
+                "shadow-lg shadow-white/25 hover:shadow-white/40 hover:shadow-xl",
+                "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-black/10 before:to-transparent",
                 "before:translate-x-[-100%] before:transition-transform before:duration-700 hover:before:translate-x-[100%]"
               )}
               asChild
