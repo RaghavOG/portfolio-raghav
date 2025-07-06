@@ -43,8 +43,8 @@ const commands = {
     "💼 more projects at github.com/raghavog"
   ],
   contact: () => [
-    "📧 email: your.email@example.com",
-    "💼 linkedin: linkedin.com/in/YOUR_LINKEDIN",
+    "📧 email: info@raghavsingla.tech",
+    "💼 linkedin: linkedin.com/in/singlaraghav",
     "🐙 github: github.com/raghavog",
     "🌐 portfolio: this website!",
     "📱 always open to interesting opportunities!"
@@ -108,8 +108,13 @@ export function TerminalSection() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isTyping, setIsTyping] = useState(false);
   const [waitingForCode, setWaitingForCode] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     if (terminalRef.current) {
@@ -118,6 +123,13 @@ export function TerminalSection() {
   }, [history]);
 
   const typewriterEffect = (text: string[], callback?: () => void) => {
+    if (!isClient) {
+      // If not on client, just add text immediately
+      setHistory(prev => [...prev, ...text, ""]);
+      callback?.();
+      return;
+    }
+    
     setIsTyping(true);
     let lineIndex = 0;
     let charIndex = 0;
@@ -168,6 +180,8 @@ export function TerminalSection() {
   };
 
   const simulateAIResponse = async (query: string, type: 'ask' | 'code' | 'review' = 'ask') => {
+    if (!isClient) return;
+    
     // Show loading message
     const loadingMessage = type === 'code' ? '🤖 AI: Generating code...' : '🤖 AI: Thinking...';
     setHistory(prev => [...prev, loadingMessage]);
@@ -332,87 +346,114 @@ export function TerminalSection() {
             {/* Content glow effect */}
             <div className="absolute inset-0 bg-gradient-radial from-green-400/10 via-transparent to-transparent pointer-events-none"></div>
             
-            {history.map((line, index) => {
-              let textColor = 'text-white/80';
-              if (line.startsWith('$')) {
-                textColor = 'text-green-400';
-              } else if (line.startsWith('🤖')) {
-                textColor = 'text-blue-400';
-              }
-              
-              return (
-                <div key={index} className={`relative z-10 ${textColor}`}>
-                  {line}
+            {!isClient ? (
+              // Server-side placeholder to prevent hydration mismatch
+              <div className="relative z-10 text-white/80">
+                <div>welcome to raghav's interactive terminal! 💻</div>
+                <div>type 'help' to see available commands.</div>
+                <div>🤖 ai assistant enabled - try 'ask' or 'code' commands!</div>
+                <div></div>
+                <div className="flex items-center text-green-400 mt-2">
+                  <span className="mr-2">$</span>
+                  <span className="text-white/40">Loading terminal...</span>
                 </div>
-              );
-            })}
-            
-            {/* Current Input Line */}
-            <div className="flex items-center text-green-400 relative z-10">
-              <span className="mr-2">$</span>
-              <input
-                ref={inputRef}
-                type="text"
-                value={currentInput}
-                onChange={(e) => setCurrentInput(e.target.value)}
-                onKeyDown={handleKeyPress}
-                className="bg-transparent border-none outline-none flex-1 text-green-400 font-mono"
-                placeholder={waitingForCode ? "paste your code here..." : "type a command..."}
-                autoFocus
-                disabled={isTyping}
-              />
-              <span className="animate-pulse">▋</span>
-            </div>
+              </div>
+            ) : (
+              <>
+                {history.map((line, index) => {
+                  let textColor = 'text-white/80';
+                  if (typeof line === 'string') {
+                    if (line.startsWith('$')) {
+                      textColor = 'text-green-400';
+                    } else if (line.startsWith('🤖')) {
+                      textColor = 'text-blue-400';
+                    }
+                  }
+                  
+                  return (
+                    <div key={index} className={`relative z-10 ${textColor}`}>
+                      {line || ''}
+                    </div>
+                  );
+                })}
+                
+                {/* Current Input Line */}
+                <div className="flex items-center text-green-400 relative z-10">
+                  <span className="mr-2">$</span>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={currentInput}
+                    onChange={(e) => setCurrentInput(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    className="bg-transparent border-none outline-none flex-1 text-green-400 font-mono"
+                    placeholder={waitingForCode ? "paste your code here..." : "type a command..."}
+                    autoFocus
+                    disabled={isTyping}
+                  />
+                  <span className="animate-pulse">▋</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         {/* Quick Commands */}
-        <div className="mt-8 flex flex-wrap gap-3">
-          {Object.keys(commands).slice(0, 8).map((cmd) => (
+        {!isClient ? (
+          // Server-side placeholder
+          <div className="mt-8 flex flex-wrap gap-3">
+            <div className="px-4 py-2 bg-white/5 border border-green-400/20 text-green-400/50 rounded-md font-mono text-sm">
+              Loading commands...
+            </div>
+          </div>
+        ) : (
+          <div className="mt-8 flex flex-wrap gap-3">
+            {Object.keys(commands).slice(0, 8).map((cmd) => (
+              <button
+                key={cmd}
+                onClick={async () => {
+                  if (!isTyping) {
+                    await executeCommand(cmd);
+                    setCurrentInput("");
+                  }
+                }}
+                disabled={isTyping}
+                className="px-4 py-2 bg-white/5 border border-green-400/20 text-green-400 rounded-md hover:bg-green-400/10 hover:border-green-400/50 transition-all duration-300 font-mono text-sm disabled:opacity-50"
+              >
+                {cmd}
+              </button>
+            ))}
+            
+            {/* AI Commands */}
             <button
-              key={cmd}
               onClick={async () => {
                 if (!isTyping) {
-                  await executeCommand(cmd);
+                  setCurrentInput("ask how to optimize React apps");
+                  await executeCommand("ask how to optimize React apps");
                   setCurrentInput("");
                 }
               }}
               disabled={isTyping}
-              className="px-4 py-2 bg-white/5 border border-green-400/20 text-green-400 rounded-md hover:bg-green-400/10 hover:border-green-400/50 transition-all duration-300 font-mono text-sm disabled:opacity-50"
+              className="px-4 py-2 bg-blue-500/20 border border-blue-400/30 text-blue-400 rounded-md hover:bg-blue-400/20 hover:border-blue-400/50 transition-all duration-300 font-mono text-sm disabled:opacity-50"
             >
-              {cmd}
+              🤖 ask demo
             </button>
-          ))}
-          
-          {/* AI Commands */}
-          <button
-            onClick={async () => {
-              if (!isTyping) {
-                setCurrentInput("ask how to optimize React apps");
-                await executeCommand("ask how to optimize React apps");
-                setCurrentInput("");
-              }
-            }}
-            disabled={isTyping}
-            className="px-4 py-2 bg-blue-500/20 border border-blue-400/30 text-blue-400 rounded-md hover:bg-blue-400/20 hover:border-blue-400/50 transition-all duration-300 font-mono text-sm disabled:opacity-50"
-          >
-            🤖 ask demo
-          </button>
-          
-          <button
-            onClick={async () => {
-              if (!isTyping) {
-                setCurrentInput("code react hook for api calls");
-                await executeCommand("code react hook for api calls");
-                setCurrentInput("");
-              }
-            }}
-            disabled={isTyping}
-            className="px-4 py-2 bg-purple-500/20 border border-purple-400/30 text-purple-400 rounded-md hover:bg-purple-400/20 hover:border-purple-400/50 transition-all duration-300 font-mono text-sm disabled:opacity-50"
-          >
-            🤖 code demo
-          </button>
-        </div>
+            
+            <button
+              onClick={async () => {
+                if (!isTyping) {
+                  setCurrentInput("code react hook for api calls");
+                  await executeCommand("code react hook for api calls");
+                  setCurrentInput("");
+                }
+              }}
+              disabled={isTyping}
+              className="px-4 py-2 bg-purple-500/20 border border-purple-400/30 text-purple-400 rounded-md hover:bg-purple-400/20 hover:border-purple-400/50 transition-all duration-300 font-mono text-sm disabled:opacity-50"
+            >
+              🤖 code demo
+            </button>
+          </div>
+        )}
 
         {/* AI Info */}
         <div className="mt-6 p-4 bg-blue-500/10 border border-blue-400/20 rounded-lg">
