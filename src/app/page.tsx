@@ -15,6 +15,8 @@ import { EducationSection } from "@/components/sections/education-section"
 import { Component as BgGradient } from "@/components/ui/bg-gradient"
 import { ServicesSection } from "@/components/sections/services-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { GitHubSection } from "@/components/sections/github-section";
+import { TerminalSection } from "@/components/sections/terminal-section";
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import { BackToTop } from "@/components/ui/back-to-top"
 import { SectionIndicators } from "@/components/ui/section-indicators"
@@ -63,6 +65,12 @@ export default function Home() {
         </section> */}
         <section id="education">
           <EducationSection />
+        </section>
+        {/* <section id="github">
+          <GitHubSection />
+        </section> */}
+        <section id="terminal">
+          <TerminalSection />
         </section>
         <section id="contact">
           <ContactSection />

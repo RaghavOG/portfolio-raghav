@@ -10,6 +10,7 @@ const sections = [
   { id: "projects", name: "PROJECTS" },
   { id: "experience", name: "EXPERIENCE" },
   { id: "education", name: "EDUCATION" },
+  { id: "terminal", name: "TERMINAL" },
   { id: "contact", name: "CONTACT" },
 ]
 
