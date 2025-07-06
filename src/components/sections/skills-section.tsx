@@ -3,7 +3,8 @@ const skills = {
   languages: ["python", "c", "cpp", "java", "javascript", "typescript"],
   frontend: ["reactjs", "vitejs", "nextjs", "tailwindcss", "scss", "bootstrap", "gsap", "framer motion"],
   backend: ["nodejs", "expressjs", "firebase", "prismaorm", "cloudinary", "drizzleorm", "redis"],
-  database: ["mysql", "postgresql", "mongodb"],
+  database: ["mysql", "postgresql", "mongodb", "pinecone", "vector databases"],
+  "ai/ml": ["langchain", "langraph", "rag applications", "agentic ai", "mcp servers", "openai", "llm integration"],
   "devops/other": ["git", "github", "docker", "notion", "nginx"],
 }
 
