@@ -133,7 +133,7 @@ export function TerminalSection() {
     setIsTyping(true);
     let lineIndex = 0;
     let charIndex = 0;
-    let currentLines: string[] = [];
+    const currentLines: string[] = [];
 
     const typeChar = () => {
       if (lineIndex < text.length) {

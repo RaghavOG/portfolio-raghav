@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export function EasterEggMode() {
   const [konami, setKonami] = useState<string[]>([]);
@@ -12,9 +13,9 @@ export function EasterEggMode() {
     stackOverflowVisits: 0
   });
 
-  const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-
   useEffect(() => {
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       console.log('Key pressed:', e.code); // Debug log
       
@@ -38,7 +39,7 @@ export function EasterEggMode() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [konamiCode]);
+  }, []);
 
   useEffect(() => {
     // Simulate real-time dev stats
@@ -194,12 +195,12 @@ export function EasterEggMode() {
 
       {/* Back to Portfolio */}
       <div className="text-center mt-12">
-        <a 
+        <Link 
           href="/"
           className="inline-block px-8 py-3 bg-green-400 text-black font-bold rounded-lg hover:bg-green-300 transition-all duration-300 font-inter"
         >
           back to portfolio
-        </a>
+        </Link>
       </div>
     </div>
   );
