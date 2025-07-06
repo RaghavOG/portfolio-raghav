@@ -77,7 +77,7 @@ export function HeroSection() {
             {/* Small Greeting */}
             <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-sm font-medium text-white/70">available for opportunities</span>
               </div>
             </div>
