@@ -388,7 +388,6 @@ export function TerminalSection() {
                     onKeyDown={handleKeyPress}
                     className="bg-transparent border-none outline-none flex-1 text-green-400 font-mono"
                     placeholder={waitingForCode ? "paste your code here..." : "type a command..."}
-                    autoFocus
                     disabled={isTyping}
                   />
                   <span className="animate-pulse">▋</span>
