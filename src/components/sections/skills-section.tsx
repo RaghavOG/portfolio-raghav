@@ -1,11 +1,11 @@
 "use client"
 const skills = {
-  languages: ["python", "c", "cpp", "java", "javascript", "typescript"],
-  frontend: ["reactjs", "vitejs", "nextjs", "tailwindcss", "scss", "bootstrap", "gsap", "framer motion"],
-  backend: ["nodejs", "expressjs", "firebase", "prismaorm", "cloudinary", "drizzleorm", "redis"],
-  database: ["mysql", "postgresql", "mongodb", "pinecone", "vector databases"],
-  "ai/ml": ["langchain", "langraph", "rag applications", "agentic ai", "mcp servers", "openai", "llm integration"],
-  "devops/other": ["git", "github", "docker", "notion", "nginx"],
+  Languages: ["Python", "C", "C++", "Java", "JavaScript", "TypeScript"],
+  Frontend: ["ReactJS", "ViteJS", "NextJS", "TailwindCSS", "SCSS", "Bootstrap", "GSAP", "Framer Motion"],
+  Backend: ["NodeJS", "ExpressJS", "Firebase", "PrismaORM", "Cloudinary", "DrizzleORM", "Redis"],
+  Database: ["MySQL", "PostgreSQL", "MongoDB", "Pinecone", "Vector Databases"],
+  "AI/ML": ["LangChain", "LangGraph", "RAG Applications", "Agentic AI", "MCP Servers", "OpenAI", "LLM Integration"],
+  "DevOps/Other": ["Git", "GitHub", "Docker", "Notion", "Nginx"],
 }
 
 export function SkillsSection() {
@@ -15,7 +15,7 @@ export function SkillsSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            skills
+            Skills
           </h2>
         </div>
 
@@ -38,7 +38,7 @@ export function SkillsSection() {
                     {category}
                   </h3>
                   <p className="text-white/60 font-inter">
-                    {skillList.length} technologies
+                    {skillList.length} Technologies
                   </p>
                 </div>
                 

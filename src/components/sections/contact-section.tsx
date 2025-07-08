@@ -71,10 +71,10 @@ export function ContactSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            get in touch
+            Get in Touch
           </h2>
           <p className="text-xl md:text-2xl text-white/80 font-inter max-w-2xl leading-relaxed">
-            let's discuss your next project or just say hello
+            Let's discuss your next project or just say hello
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export function ContactSection() {
           <div className="space-y-12">
             <div>
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-8 font-space-grotesk">
-                contact information
+                Contact Information
               </h3>
               
               <div className="space-y-6">
@@ -149,7 +149,7 @@ export function ContactSection() {
           {/* Right Column - Contact Form */}
           <div className="space-y-8">
             <h3 className="text-3xl md:text-4xl font-bold text-white font-space-grotesk">
-              send a message
+              Send a Message
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -165,13 +165,13 @@ export function ContactSection() {
               
               <div>
                 <Label htmlFor="name" className="text-white/80 font-inter text-lg mb-2 block">
-                  name
+                  Name
                 </Label>
                 <Input
                   id="name"
                   name="name"
                   type="text"
-                  placeholder="your name"
+                  placeholder="Your Name"
                   value={formData.name}
                   onChange={handleInputChange}
                   required
@@ -180,7 +180,7 @@ export function ContactSection() {
               </div>
               <div>
                 <Label htmlFor="email" className="text-white/80 font-inter text-lg mb-2 block">
-                  email
+                  Email
                 </Label>
                 <Input
                   id="email"
@@ -195,12 +195,12 @@ export function ContactSection() {
               </div>
               <div>
                 <Label htmlFor="message" className="text-white/80 font-inter text-lg mb-2 block">
-                  message
+                  Message
                 </Label>
                 <Textarea
                   id="message"
                   name="message"
-                  placeholder="your message..."
+                  placeholder="Your Message..."
                   rows={6}
                   value={formData.message}
                   onChange={handleInputChange}
@@ -213,7 +213,7 @@ export function ContactSection() {
                 disabled={isSubmitting}
                 className="w-full bg-white text-black hover:bg-white/90 h-12 text-lg font-medium transition-all duration-300 font-inter rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'sending...' : 'send message'}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </form>
           </div>

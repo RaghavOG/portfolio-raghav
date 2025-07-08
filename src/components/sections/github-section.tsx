@@ -8,10 +8,10 @@ export function GitHubSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            github activity
+            GitHub Activity
           </h2>
           <p className="text-2xl text-white/60 font-inter max-w-2xl">
-            👨‍💻 "i code daily, not just talk."
+            👨‍💻 "I code daily, not just talk."
           </p>
         </div>
 
@@ -35,15 +35,15 @@ export function GitHubSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center p-8 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300">
             <div className="text-5xl font-bold text-white mb-4 font-space-grotesk">500+</div>
-            <div className="text-white/60 font-inter text-lg">commits this year</div>
+            <div className="text-white/60 font-inter text-lg">Commits This Year</div>
           </div>
           <div className="text-center p-8 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300">
             <div className="text-5xl font-bold text-white mb-4 font-space-grotesk">50+</div>
-            <div className="text-white/60 font-inter text-lg">repositories</div>
+            <div className="text-white/60 font-inter text-lg">Repositories</div>
           </div>
           <div className="text-center p-8 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300">
             <div className="text-5xl font-bold text-white mb-4 font-space-grotesk">365</div>
-            <div className="text-white/60 font-inter text-lg">days streak</div>
+            <div className="text-white/60 font-inter text-lg">Days Streak</div>
           </div>
         </div>
       </div>

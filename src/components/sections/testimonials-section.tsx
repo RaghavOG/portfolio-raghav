@@ -2,33 +2,33 @@ import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 const testimonials = [
   {
-    quote: "raghav delivered exceptional work on our web platform. his attention to detail and problem-solving skills made the entire development process smooth and efficient.",
-    name: "priya sharma",
-    designation: "product manager at techflow",
+    quote: "Raghav delivered exceptional work on our web platform. His attention to detail and problem-solving skills made the entire development process smooth and efficient.",
+    name: "Priya Sharma",
+    designation: "Product Manager at TechFlow",
     src: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    quote: "working with raghav was a game-changer for our startup. he understood our vision and translated it into a robust, scalable application that exceeded our expectations.",
-    name: "alex chen",
-    designation: "founder & ceo at innovatesphere",
+    quote: "Working with Raghav was a game-changer for our startup. He understood our vision and translated it into a robust, scalable application that exceeded our expectations.",
+    name: "Alex Chen",
+    designation: "Founder & CEO at InnovateSphere",
     src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    quote: "raghav's full-stack expertise helped us launch our platform ahead of schedule. his code quality and documentation made future maintenance a breeze.",
-    name: "sarah wilson",
-    designation: "tech lead at cloudscale",
+    quote: "Raghav's full-stack expertise helped us launch our platform ahead of schedule. His code quality and documentation made future maintenance a breeze.",
+    name: "Sarah Wilson",
+    designation: "Tech Lead at CloudScale",
     src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    quote: "impressive technical skills combined with excellent communication. raghav not only delivered great code but also provided valuable insights for our project architecture.",
-    name: "david kumar",
-    designation: "engineering manager at datapro",
+    quote: "Impressive technical skills combined with excellent communication. Raghav not only delivered great code but also provided valuable insights for our project architecture.",
+    name: "David Kumar",
+    designation: "Engineering Manager at DataPro",
     src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    quote: "the attention to detail and innovative features raghav implemented completely transformed our workflow. this is exactly what we've been looking for.",
-    name: "maya patel",
-    designation: "operations director at futuretech",
+    quote: "The attention to detail and innovative features Raghav implemented completely transformed our workflow. This is exactly what we've been looking for.",
+    name: "Maya Patel",
+    designation: "Operations Director at FutureTech",
     src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   }
 ]
@@ -40,7 +40,7 @@ export function TestimonialsSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            testimonials
+            Testimonials
           </h2>
         </div>
 

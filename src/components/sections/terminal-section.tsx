@@ -2,105 +2,105 @@
 import { useState, useEffect, useRef } from 'react';
 
 const commands = {
+  jokes: () => [
+    "😄 Programming Jokes:",
+    "• Why do programmers prefer dark mode? Light attracts bugs!",
+    "• How many programmers does it take to fix a lightbulb? None, it's a hardware issue",
+    "• Why do Java developers wear glasses? Because they can't C#",
+    "• There are 10 types of people: those who understand binary and those who don't",
+    "• 99 little bugs in the code, 99 bugs in the code...",
+    "• It works on my machine! - Every developer ever"
+  ],
   help: () => [
-    "available commands:",
-    "  whoami      - about me",
-    "  skills      - my technical skills", 
-    "  projects    - recent projects",
-    "  contact     - get in touch",
-    "  clear       - clear terminal",
-    "  easter      - find the easter egg 🥚",
-    "  matrix      - access the matrix",
-    "  konami      - about the konami code",
-    "  funfacts    - random developer fun facts",
-    "  jokes       - programming jokes",
-    "  quotes      - inspirational coding quotes",
-    "  cat <file>  - view file contents",
-    "  ask <query> - ask AI assistant anything",
-    "  code <desc> - generate code snippets",
-    "  review      - get code review (paste code after)",
-    "  history     - show command history"
+    "Available Commands:",
+    "  whoami      - About Me",
+    "  skills      - My Technical Skills", 
+    "  projects    - Recent Projects",
+    "  contact     - Get in Touch",
+    "  clear       - Clear Terminal",
+    "  easter      - Find the Easter Egg 🥚",
+    "  matrix      - Access the Matrix",
+    "  konami      - About the Konami Code",
+    "  funfacts    - Random Developer Fun Facts",
+    "  jokes       - Programming Jokes",
+    "  quotes      - Inspirational Coding Quotes",
+    "  cat <file>  - View File Contents",
+    "  ask <query> - Ask AI Assistant Anything",
+    "  code <desc> - Generate Code Snippets",
+    "  review      - Get Code Review (paste code after)",
+    "  history     - Show Command History"
   ],
   whoami: () => [
-    "raghav - full stack developer",
-    "location: india",
-    "passion: building scalable applications with modern tech",
-    "specialties: react, node.js, ai/ml, vector dbs",
-    "fun fact: i debug with console.log more than i'd like to admit 😅"
+    "Raghav - Full Stack Developer",
+    "Location: India",
+    "Passion: Building scalable applications with modern tech",
+    "Specialties: React, Node.js, AI/ML, Vector DBs",
+    "Fun Fact: I debug with console.log more than I'd like to admit 😅"
   ],
   skills: () => [
-    "frontend: react, next.js, typescript, tailwind css",
-    "backend: node.js, express.js, python, firebase",
-    "database: mongodb, postgresql, pinecone, vector dbs",
-    "ai/ml: langchain, langgraph, rag, agentic ai, mcp servers",
-    "devops: docker, git, github, nginx"
+    "Frontend: React, Next.js, TypeScript, Tailwind CSS",
+    "Backend: Node.js, Express.js, Python, Firebase",
+    "Database: MongoDB, PostgreSQL, Pinecone, Vector DBs",
+    "AI/ML: LangChain, LangGraph, RAG, Agentic AI, MCP Servers",
+    "DevOps: Docker, Git, GitHub, Nginx"
   ],
   projects: () => [
-    "🚀 ai-powered portfolio - this website you're on!",
-    "🤖 rag chat application - langchain + vector db",
-    "📊 full-stack dashboard - react + node.js + mongodb",
-    "🔧 mcp server integration - ai agent communication",
-    "💼 more projects at github.com/raghavog"
+    "🚀 AI-Powered Portfolio - This website you're on!",
+    "🤖 RAG Chat Application - LangChain + Vector DB",
+    "📊 Full-Stack Dashboard - React + Node.js + MongoDB",
+    "🔧 MCP Server Integration - AI Agent Communication",
+    "💼 More projects at github.com/RaghavOG"
   ],
   contact: () => [
-    "📧 email: info@raghavsingla.tech",
-    "💼 linkedin: linkedin.com/in/singlaraghav",
-    "🐙 github: github.com/raghavog",
-    "🌐 portfolio: this website!",
-    "📱 always open to interesting opportunities!"
+    "📧 Email: info@raghavsingla.tech",
+    "💼 LinkedIn: linkedin.com/in/singlaraghav",
+    "🐙 GitHub: github.com/RaghavOG",
+    "🌐 Portfolio: This website!",
+    "📱 Always open to interesting opportunities!"
   ],
   easter: () => [
-    "🎉 you found the easter egg! 🥚",
-    "here's a secret: i once spent 3 hours debugging only to find",
-    "i had a typo in a variable name. classic developer moment! 😂",
-    "achievement unlocked: true developer 🏆",
+    "🎉 You found the Easter Egg! 🥚",
+    "Here's a secret: I once spent 3 hours debugging only to find",
+    "I had a typo in a variable name. Classic developer moment! 😂",
+    "Achievement Unlocked: True Developer 🏆",
     "",
-    "🔗 want more secrets? visit /debug for the full experience!"
+    "🔗 Want more secrets? Visit /debug for the full experience!"
   ],
   matrix: () => [
-    "🚨 accessing the matrix...",
-    "redirecting to debug mode...",
-    "visit /debug to see the matrix effect!"
+    "🚨 Accessing the Matrix...",
+    "Redirecting to debug mode...",
+    "Visit /debug to see the Matrix effect!"
   ],
   konami: () => [
-    "🎮 konami code detected!",
-    "↑↑↓↓←→←→ba - the classic cheat code",
-    "try it on /debug page for a special surprise!"
+    "🎮 Konami Code Detected!",
+    "↑↑↓↓←→←→BA - The classic cheat code",
+    "Try it on /debug page for a special surprise!"
   ],
   funfacts: () => [
-    "🤯 fun developer facts:",
-    "• the first computer bug was an actual bug (moth) found in 1947",
-    "• 'hello world' was first used in 1972 by brian kernighan",
-    "• the average programmer drinks 3.2 cups of coffee per day",
-    "• rubber duck debugging is a real technique!",
-    "• the term 'debugging' comes from grace hopper removing moths",
-    "• stackoverflow gets 21 million visits monthly"
-  ],
-  jokes: () => [
-    "� programming jokes:",
-    "• why do programmers prefer dark mode? light attracts bugs!",
-    "• how many programmers does it take to fix a lightbulb? none, it's a hardware issue",
-    "• why do java developers wear glasses? because they can't c#",
-    "• there are 10 types of people: those who understand binary and those who don't",
-    "• 99 little bugs in the code, 99 bugs in the code...",
-    "• it works on my machine! - every developer ever"
+    "🤯 Fun Developer Facts:",
+    "• The first computer bug was an actual bug (moth) found in 1947",
+    "• 'Hello World' was first used in 1972 by Brian Kernighan",
+    "• The average programmer drinks 3.2 cups of coffee per day",
+    "• Rubber duck debugging is a real technique!",
+    "• The term 'debugging' comes from Grace Hopper removing moths",
+    "• StackOverflow gets 21 million visits monthly"
   ],
   quotes: () => [
-    "💭 coding wisdom:",
-    "• 'talk is cheap. show me the code.' - linus torvalds",
-    "• 'first, solve the problem. then, write the code.' - john johnson",
-    "• 'code is like humor. when you have to explain it, it's bad.' - cory house",
-    "• 'any fool can write code that a computer can understand.' - martin fowler",
-    "• 'the best error message is the one that never shows up.' - thomas fuchs",
-    "• 'simplicity is the ultimate sophistication.' - leonardo da vinci"
+    "💭 Coding Wisdom:",
+    "• 'Talk is cheap. Show me the code.' - Linus Torvalds",
+    "• 'First, solve the problem. Then, write the code.' - John Johnson",
+    "• 'Code is like humor. When you have to explain it, it's bad.' - Cory House",
+    "• 'Any fool can write code that a computer can understand.' - Martin Fowler",
+    "• 'The best error message is the one that never shows up.' - Thomas Fuchs",
+    "• 'Simplicity is the ultimate sophistication.' - Leonardo da Vinci"
   ]
 };
 
 export function TerminalSection() {
   const [history, setHistory] = useState<string[]>([
-    "welcome to raghav's interactive terminal! 💻",
-    "type 'help' to see available commands.",
-    "🤖 ai assistant enabled - try 'ask' or 'code' commands!",
+    "Welcome to Raghav's Interactive Terminal! 💻",
+    "Type 'help' to see available commands.",
+    "🤖 AI assistant enabled - try 'ask' or 'code' commands!",
     ""
   ]);
   const [currentInput, setCurrentInput] = useState("");
@@ -224,14 +224,14 @@ export function TerminalSection() {
     
     if (command === 'clear') {
       setHistory([
-        "welcome to raghav's interactive terminal! 💻",
-        "type 'help' to see available commands.",
-        "🤖 ai assistant enabled - try 'ask' or 'code' commands!",
+        "Welcome to Raghav's Interactive Terminal! 💻",
+        "Type 'help' to see available commands.",
+        "🤖 AI assistant enabled - try 'ask' or 'code' commands!",
         ""
       ]);
     } else if (command === 'history') {
       const historyOutput = [
-        "command history:",
+        "Command History:",
         ...commandHistory.map((cmd, i) => `  ${i + 1}  ${cmd}`)
       ];
       typewriterEffect(historyOutput);
@@ -240,14 +240,14 @@ export function TerminalSection() {
       if (query) {
         await simulateAIResponse(query, 'ask');
       } else {
-        setHistory(prev => [...prev, "usage: ask <your question>", ""]);
+        setHistory(prev => [...prev, "Usage: ask <your question>", ""]);
       }
     } else if (command === 'code') {
       const description = args.join(' ');
       if (description) {
         await simulateAIResponse(description, 'code');
       } else {
-        setHistory(prev => [...prev, "usage: code <description>", ""]);
+        setHistory(prev => [...prev, "Usage: code <description>", ""]);
       }
     } else if (command === 'review') {
       setWaitingForCode(true);
@@ -263,7 +263,7 @@ export function TerminalSection() {
       } else if (filename === 'resume.pdf') {
         setHistory(prev => [...prev, "📄 resume.pdf - binary file (use 'download resume' to get actual file)", ""]);
       } else {
-        setHistory(prev => [...prev, `cat: ${filename}: no such file or directory`, ""]);
+        setHistory(prev => [...prev, `cat: ${filename}: No such file or directory`, ""]);
       }
     } else if (commands[command as keyof typeof commands]) {
       const output = commands[command as keyof typeof commands]();
@@ -271,7 +271,7 @@ export function TerminalSection() {
     } else if (command === '') {
       setHistory(prev => [...prev, ""]);
     } else {
-      setHistory(prev => [...prev, `command not found: ${command}. type 'help' for available commands.`, ""]);
+      setHistory(prev => [...prev, `Command not found: ${command}. Type 'help' for available commands.`, ""]);
     }
   };
 
@@ -317,10 +317,10 @@ export function TerminalSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            terminal
+            Terminal
           </h2>
           <p className="text-2xl text-green-400/80 font-inter max-w-2xl">
-            🎮 interactive cli interface - now with ai assistance!
+            🎮 Interactive CLI Interface - Now with AI Assistance!
           </p>
         </div>
 
@@ -349,13 +349,13 @@ export function TerminalSection() {
             {!isClient ? (
               // Server-side placeholder to prevent hydration mismatch
               <div className="relative z-10 text-white/80">
-                <div>welcome to raghav's interactive terminal! 💻</div>
-                <div>type 'help' to see available commands.</div>
-                <div>🤖 ai assistant enabled - try 'ask' or 'code' commands!</div>
+                <div>Welcome to Raghav's Interactive Terminal! 💻</div>
+                <div>Type 'help' to see available commands.</div>
+                <div>🤖 AI assistant enabled - try 'ask' or 'code' commands!</div>
                 <div></div>
                 <div className="flex items-center text-green-400 mt-2">
                   <span className="mr-2">$</span>
-                  <span className="text-white/40">Loading terminal...</span>
+                  <span className="text-white/40">Loading Terminal...</span>
                 </div>
               </div>
             ) : (
@@ -387,7 +387,7 @@ export function TerminalSection() {
                     onChange={(e) => setCurrentInput(e.target.value)}
                     onKeyDown={handleKeyPress}
                     className="bg-transparent border-none outline-none flex-1 text-green-400 font-mono"
-                    placeholder={waitingForCode ? "paste your code here..." : "type a command..."}
+                    placeholder={waitingForCode ? "Paste your code here..." : "Type a command..."}
                     disabled={isTyping}
                   />
                   <span className="animate-pulse">▋</span>
@@ -402,7 +402,7 @@ export function TerminalSection() {
           // Server-side placeholder
           <div className="mt-8 flex flex-wrap gap-3">
             <div className="px-4 py-2 bg-white/5 border border-green-400/20 text-green-400/50 rounded-md font-mono text-sm">
-              Loading commands...
+              Loading Commands...
             </div>
           </div>
         ) : (
@@ -427,8 +427,8 @@ export function TerminalSection() {
             <button
               onClick={async () => {
                 if (!isTyping) {
-                  setCurrentInput("ask how to optimize React apps");
-                  await executeCommand("ask how to optimize React apps");
+                  setCurrentInput("ask How to optimize React apps");
+                  await executeCommand("ask How to optimize React apps");
                   setCurrentInput("");
                 }
               }}
@@ -441,8 +441,8 @@ export function TerminalSection() {
             <button
               onClick={async () => {
                 if (!isTyping) {
-                  setCurrentInput("code react hook for api calls");
-                  await executeCommand("code react hook for api calls");
+                  setCurrentInput("code React hook for API calls");
+                  await executeCommand("code React hook for API calls");
                   setCurrentInput("");
                 }
               }}

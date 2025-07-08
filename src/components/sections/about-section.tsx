@@ -5,7 +5,7 @@ export function AboutSection() {
         {/* Header */}
         <div className="mb-20">
           <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
-            about me
+            About Me
           </h2>
         </div>
 
@@ -14,15 +14,15 @@ export function AboutSection() {
           {/* Left Column - Main Content */}
           <div className="space-y-8">
             <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-inter">
-              i am a passionate full stack engineer with a strong focus on building scalable and user-friendly applications.
+              I am a passionate full stack engineer with a strong focus on building scalable and user-friendly applications.
             </p>
             <p className="text-lg text-white/70 leading-relaxed font-inter">
-              my expertise spans across frontend frameworks like react, backend technologies such as node.js and python, and
-              database management. i thrive on solving complex problems and continuously learning new technologies to
+              My expertise spans across frontend frameworks like React, backend technologies such as Node.js and Python, and
+              database management. I thrive on solving complex problems and continuously learning new technologies to
               deliver innovative solutions.
             </p>
             <p className="text-lg text-white/70 leading-relaxed font-inter">
-              beyond coding, i enjoy exploring the intersection of ai and web development, always looking for ways to
+              Beyond coding, I enjoy exploring the intersection of AI and web development, always looking for ways to
               integrate intelligent systems into everyday applications.
             </p>
           </div>
@@ -30,23 +30,23 @@ export function AboutSection() {
           {/* Right Column - Achievements */}
           <div className="space-y-8">
             <h3 className="text-4xl md:text-5xl font-bold text-white font-space-grotesk">
-              achievements
+              Achievements
             </h3>
             <div className="space-y-6">
               <div className="border-l-2 border-white/20 pl-6 hover:border-white/40 transition-colors duration-300">
                 <p className="text-lg text-white/70 leading-relaxed font-inter">
-                  created and published 4 developer-focused npm packages (complete-auth-system, mern-vite-shadcn-template,
-                  vite-tailwind-starter, and vite-shadcn-starter) that have garnered over 1000+ combined downloads.
+                  Created and published 4 developer-focused NPM packages (Complete-Auth-System, MERN-Vite-ShadCN-Template,
+                  Vite-Tailwind-Starter, and Vite-ShadCN-Starter) that have garnered over 1000+ combined downloads.
                 </p>
               </div>
               <div className="border-l-2 border-white/20 pl-6 hover:border-white/40 transition-colors duration-300">
                 <p className="text-lg text-white/70 leading-relaxed font-inter">
-                  sih college level round qualifiers 2023.
+                  SIH College Level Round Qualifiers 2023.
                 </p>
               </div>
               <div className="border-l-2 border-white/20 pl-6 hover:border-white/40 transition-colors duration-300">
                 <p className="text-lg text-white/70 leading-relaxed font-inter">
-                  finalists hackindia web3 hackathon.
+                  Finalists HackIndia Web3 Hackathon.
                 </p>
               </div>
             </div>

@@ -15,10 +15,10 @@ export function HeroSection() {
     
     const typed = new Typed(el.current, {
       strings: [
-        "full stack development", 
-        "ai engineering", 
-        "problem solving", 
-        "tech innovation"
+        "Full Stack Development", 
+        "AI Engineering", 
+        "Problem Solving", 
+        "Tech Innovation"
       ],
       typeSpeed: 80,
       backSpeed: 50,
@@ -78,7 +78,7 @@ export function HeroSection() {
             <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-white/70">available for opportunities</span>
+                <span className="text-sm font-medium text-white/70">Available For Opportunities</span>
               </div>
             </div>
 
@@ -86,13 +86,13 @@ export function HeroSection() {
             <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-space-grotesk leading-[0.85] text-left">
                 <span className="text-white/60 text-2xl md:text-3xl lg:text-4xl font-normal block mb-2">
-                  hello world,
+                  Hello World,
                 </span>
                 <span className="text-white block">
-                  i'm raghav singla
+                  I'm Raghav Singla
                 </span>
-                <span className="text-white/80 block text-3xl md:text-4xl lg:text-5xl">
-                  passionate about
+                <span className="text-white/80 block text-3xl md:text-4xl lg:text-4xl">
+                  Passionate About
                 </span>
               </h1>
             </div>
@@ -100,7 +100,7 @@ export function HeroSection() {
             {/* Description */}
             <div className={`transform transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-lg">
-                creating innovative solutions that bridge the gap between 
+                Creating innovative solutions that bridge the gap between 
                 cutting-edge technology and real-world applications.
               </p>
             </div>
@@ -113,7 +113,7 @@ export function HeroSection() {
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <Eye className="h-5 w-5" />
-                  view my work
+                  View My Work
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-transparent translate-x-[-100%] transition-transform duration-700 group-hover:translate-x-[100%]"></div>
               </Button>
@@ -125,7 +125,7 @@ export function HeroSection() {
               >
                 <a href="/Raghav_Resume.pdf" download className="flex items-center gap-2">
                   <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
-                  download resume
+                  Download Resume
                 </a>
               </Button>
             </div>
@@ -136,7 +136,7 @@ export function HeroSection() {
             {/* Subtitle with Typed.js */}
             <div className={`transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <div className="text-2xl md:text-3xl lg:text-4xl font-inter text-right">
-                <span className="text-white/60">specialized in </span>
+                <span className="text-white/60">Specialized In </span>
                 <br />
                 <span ref={el} className="text-white font-medium"></span>
               </div>
@@ -160,11 +160,11 @@ export function HeroSection() {
             <div className={`grid grid-cols-2 gap-4 transform transition-all duration-1000 delay-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <div className="bg-white/5 border border-white/10 rounded-lg p-4 text-center hover:bg-white/10 transition-colors duration-300">
                 <div className="text-2xl font-bold text-white font-space-grotesk">1+</div>
-                <div className="text-sm text-white/60 font-inter">years experience</div>
+                <div className="text-sm text-white/60 font-inter">Years Experience</div>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-lg p-4 text-center hover:bg-white/10 transition-colors duration-300">
                 <div className="text-2xl font-bold text-white font-space-grotesk">10+</div>
-                <div className="text-sm text-white/60 font-inter">projects completed</div>
+                <div className="text-sm text-white/60 font-inter">Projects Completed</div>
               </div>
             </div>
 
@@ -195,7 +195,7 @@ export function HeroSection() {
                 </a>
               </div>
               <div className="text-center md:text-right mt-4">
-                <span className="text-sm text-white/40 font-inter">let's create something amazing together</span>
+                <span className="text-sm text-white/40 font-inter">Let's Create Something Amazing Together</span>
               </div>
             </div>
           </div>
