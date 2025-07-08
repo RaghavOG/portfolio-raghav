@@ -91,9 +91,9 @@ export function HeroSection() {
                 <span className="text-white block">
                   I'm Raghav Singla
                 </span>
-                <span className="text-white/80 block text-3xl md:text-4xl lg:text-4xl">
+                {/* <span className="text-white/80 block text-3xl md:text-4xl lg:text-4xl">
                   Passionate About
-                </span>
+                </span> */}
               </h1>
             </div>
 
