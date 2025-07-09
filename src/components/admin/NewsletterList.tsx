@@ -40,7 +40,7 @@ export default function NewsletterList() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [page, setPage] = useState(1);
 
-  const fetchSubscribers = async () => {
+  const fetchSubscribers = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams();
@@ -61,11 +61,11 @@ export default function NewsletterList() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, search, statusFilter]);
 
   useEffect(() => {
     fetchSubscribers();
-  }, [search, statusFilter, page]);
+  }, [fetchSubscribers]);
 
   const handleExport = async () => {
     try {

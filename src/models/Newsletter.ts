@@ -47,8 +47,7 @@ const NewsletterSchema = new mongoose.Schema<INewsletter>({
   timestamps: true
 });
 
-// Create indexes
-NewsletterSchema.index({ email: 1 });
+// Create indexes (email index is automatically created by unique: true)
 NewsletterSchema.index({ status: 1 });
 NewsletterSchema.index({ subscribedAt: -1 });
 

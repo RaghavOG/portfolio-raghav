@@ -37,7 +37,8 @@ async function getBlogPost(slug: string) {
 
 // Generate metadata
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const blog = await getBlogPost(params.slug);
+  const { slug } = await params;
+  const blog = await getBlogPost(slug);
 
   if (!blog) {
     return {
@@ -67,7 +68,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       images: blog.featuredImage ? [blog.featuredImage] : ['/og-blog.jpg'],
     },
     alternates: {
-      canonical: `/blog/${params.slug}`,
+      canonical: `/blog/${slug}`,
     },
   };
 }
@@ -95,7 +96,8 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const blog = await getBlogPost(params.slug);
+  const { slug } = await params;
+  const blog = await getBlogPost(slug);
 
   if (!blog) {
     notFound();
@@ -123,7 +125,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     dateModified: blog.updatedAt,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `/blog/${params.slug}`,
+      '@id': `/blog/${slug}`,
     },
     keywords: blog.tags?.join(', ') || '',
     wordCount: blog.content?.length || 0,
@@ -146,7 +148,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Share Buttons */}
           <div className="my-8">
             <BlogShare 
-              url={`${process.env.NEXT_PUBLIC_APP_URL}/blog/${params.slug}`}
+              url={`${process.env.NEXT_PUBLIC_APP_URL}/blog/${slug}`}
               title={blog.title}
               description={blog.excerpt}
             />
@@ -155,7 +157,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Comments Section */}
           <div className="my-12">
             <Suspense fallback={<LoadingSpinner />}>
-              <BlogComments blogId={blog._id} blogSlug={params.slug} />
+              <BlogComments blogId={blog._id} blogSlug={slug} />
             </Suspense>
           </div>
 

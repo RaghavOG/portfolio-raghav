@@ -39,6 +39,9 @@ export default function BlogComments({ blogId, blogSlug }: BlogCommentsProps) {
   useEffect(() => {
     if (!ref.current || !isConfigured) return;
 
+    // Store current ref to avoid stale closure
+    const currentRef = ref.current;
+
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
     script.setAttribute('data-repo', giscusConfig.repo);
@@ -56,14 +59,27 @@ export default function BlogComments({ blogId, blogSlug }: BlogCommentsProps) {
     script.crossOrigin = 'anonymous';
     script.async = true;
 
-    ref.current.appendChild(script);
+    currentRef.appendChild(script);
 
     return () => {
-      if (ref.current) {
-        ref.current.innerHTML = '';
+      if (currentRef) {
+        currentRef.innerHTML = '';
       }
     };
-  }, [resolvedTheme, isConfigured]);
+  }, [
+    resolvedTheme, 
+    isConfigured,
+    giscusConfig.repo,
+    giscusConfig.repoId,
+    giscusConfig.category,
+    giscusConfig.categoryId,
+    giscusConfig.mapping,
+    giscusConfig.strict,
+    giscusConfig.reactionsEnabled,
+    giscusConfig.emitMetadata,
+    giscusConfig.inputPosition,
+    giscusConfig.lang
+  ]);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
