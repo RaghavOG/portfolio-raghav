@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("dark", inter.variable, spaceGrotesk.variable)}>
+      <head>
+        <meta name="google-site-verification" content="nDniD2KBqFE_i9t4cyWhp54YOSRZot-KFxST6V9nggo" />
+      </head>
       <body className="min-h-screen bg-darkBackground font-sans antialiased text-darkForeground">
         <ThemeProvider
           attribute="class"
