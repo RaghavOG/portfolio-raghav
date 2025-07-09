@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { LogOut, Mail, BarChart3, Home, Clock } from 'lucide-react';
+import { LogOut, Mail, BarChart3, Home, Clock, BookOpen, Users, Edit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
@@ -67,6 +67,18 @@ function AdminLayoutContent({
       href: '/control-panel/contacts',
       icon: Mail,
       current: pathname.startsWith('/control-panel/contacts')
+    },
+    {
+      name: 'Blog Management',
+      href: '/control-panel/blogs',
+      icon: BookOpen,
+      current: pathname.startsWith('/control-panel/blogs')
+    },
+    {
+      name: 'Newsletter',
+      href: '/control-panel/newsletter',
+      icon: Users,
+      current: pathname.startsWith('/control-panel/newsletter')
     }
   ];
 

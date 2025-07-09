@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import { AlertTriangle, RefreshCw, Home } from "lucide-react"
@@ -95,12 +96,12 @@ export default function Error({
                 >
                   Refresh Page
                 </button>
-                <a 
+                <Link 
                   href="/#contact" 
                   className="text-white/70 hover:text-white transition-colors duration-300 border-l-2 border-white/20 pl-6 hover:border-white/40 font-inter text-lg"
                 >
                   Contact Support
-                </a>
+                </Link>
                 <button 
                   onClick={() => {
                     if (typeof window !== 'undefined' && window.history.length > 1) {

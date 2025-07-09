@@ -1,30 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ContactSubmission } from '@/models/Contact';
+import { Blog, Newsletter } from '@/models/Blog';
 import connectDB from '@/lib/mongodb';
 
 export async function GET(request: NextRequest) {
   try {
     await connectDB();
 
-    // Get total counts by status
-    const totalSubmissions = await ContactSubmission.countDocuments();
-    const pendingSubmissions = await ContactSubmission.countDocuments({ status: 'pending' });
-    const readSubmissions = await ContactSubmission.countDocuments({ status: 'read' });
-    const repliedSubmissions = await ContactSubmission.countDocuments({ status: 'replied' });
+    // Contact Stats
+    const totalSubmissions = await (ContactSubmission as any).countDocuments();
+    const pendingSubmissions = await (ContactSubmission as any).countDocuments({ status: 'pending' });
+    const readSubmissions = await (ContactSubmission as any).countDocuments({ status: 'read' });
+    const repliedSubmissions = await (ContactSubmission as any).countDocuments({ status: 'replied' });
 
-    // Get recent submissions
-    const recentSubmissions = await ContactSubmission.find()
+    // Blog Stats
+    const totalBlogs = await (Blog as any).countDocuments();
+    const publishedBlogs = await (Blog as any).countDocuments({ status: 'published' });
+    const draftBlogs = await (Blog as any).countDocuments({ status: 'draft' });
+    const totalViews = await (Blog as any).aggregate([
+      { $group: { _id: null, total: { $sum: '$views' } } }
+    ]);
+
+    // Newsletter Stats
+    const totalSubscribers = await (Newsletter as any).countDocuments();
+    const activeSubscribers = await (Newsletter as any).countDocuments({ isActive: true });
+
+    // Recent submissions
+    const recentSubmissions = await (ContactSubmission as any).find()
       .sort({ createdAt: -1 })
-      .limit(10)
+      .limit(5)
       .select('name email message status createdAt')
       .lean();
 
+    // Recent blogs
+    const recentBlogs = await (Blog as any).find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select('title slug status publishedAt views createdAt')
+      .lean();
+
     return NextResponse.json({
-      totalSubmissions,
-      pendingSubmissions,
-      readSubmissions,
-      repliedSubmissions,
-      recentSubmissions
+      contacts: {
+        total: totalSubmissions,
+        pending: pendingSubmissions,
+        read: readSubmissions,
+        replied: repliedSubmissions,
+        recent: recentSubmissions
+      },
+      blogs: {
+        total: totalBlogs,
+        published: publishedBlogs,
+        draft: draftBlogs,
+        totalViews: totalViews[0]?.total || 0,
+        recent: recentBlogs
+      },
+      newsletter: {
+        total: totalSubscribers,
+        active: activeSubscribers,
+        inactive: totalSubscribers - activeSubscribers
+      }
     });
 
   } catch (error) {

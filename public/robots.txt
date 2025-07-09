@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.raghavsingla.tech
+
+# Sitemaps
+Sitemap: https://www.raghavsingla.tech/sitemap.xml
