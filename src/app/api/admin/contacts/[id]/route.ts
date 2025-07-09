@@ -10,7 +10,7 @@ export async function PATCH(
     await connectDB();
 
     const { status } = await request.json();
-    const { id } = params;
+    const { id } = await params;
 
     if (!['pending', 'read', 'replied'].includes(status)) {
       return NextResponse.json(

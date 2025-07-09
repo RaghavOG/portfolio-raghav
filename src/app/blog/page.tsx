@@ -36,6 +36,8 @@ interface BlogPageProps {
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const resolvedSearchParams = await searchParams;
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-800">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -52,8 +54,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
         {/* Search and Filters */}
         <div className="mb-8 space-y-6">
-          <BlogSearch initialSearch={searchParams.search} />
-          <BlogCategories selectedCategory={searchParams.category} />
+          <BlogSearch initialSearch={resolvedSearchParams.search} />
+          <BlogCategories selectedCategory={resolvedSearchParams.category} />
         </div>
 
         {/* Main Content */}
@@ -61,7 +63,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           {/* Blog List */}
           <div className="lg:col-span-3">
             <Suspense fallback={<LoadingSpinner />}>
-              <BlogList searchParams={searchParams} />
+              <BlogList searchParams={resolvedSearchParams} />
             </Suspense>
           </div>
 

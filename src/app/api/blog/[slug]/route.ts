@@ -15,7 +15,7 @@ export async function GET(
   try {
     await connectDB();
 
-    const { slug } = params;
+    const { slug } = await params;
 
     const blog = await (Blog as any).findOne({ 
       slug, 
