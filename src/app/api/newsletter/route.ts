@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Newsletter from '@/models/Newsletter';
+import { sendWelcomeEmail } from '@/lib/email-utils';
 
 // POST /api/newsletter - Subscribe to newsletter
 export async function POST(request: NextRequest) {
@@ -45,10 +46,23 @@ export async function POST(request: NextRequest) {
     const subscriber = new (Newsletter as any)({
       email,
       name,
-      isActive: true
+      status: 'subscribed'
     });
 
     await subscriber.save();
+
+    // Send welcome email
+    try {
+      const emailSent = await sendWelcomeEmail(email, name);
+      if (emailSent) {
+        console.log(`✅ Welcome email sent to: ${email}`);
+      } else {
+        console.warn(`⚠️ Failed to send welcome email to: ${email}`);
+      }
+    } catch (emailError) {
+      console.error('Error sending welcome email:', emailError);
+      // Don't fail the subscription if email fails
+    }
 
     return NextResponse.json({ 
       message: 'Successfully subscribed to newsletter!' 

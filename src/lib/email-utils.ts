@@ -1,10 +1,10 @@
-// Simple email utility for newsletter functionality
-// This is a basic implementation - for production, consider using services like:
-// - SendGrid
-// - Mailgun
-// - AWS SES
-// - Resend
-// - Nodemailer with your SMTP provider
+// Email utility using Resend for newsletter functionality
+import { Resend } from 'resend';
+import connectDB from './mongodb';
+import Newsletter from '@/models/Newsletter';
+
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 interface NewsletterEmailData {
   to: string;
@@ -12,6 +12,7 @@ interface NewsletterEmailData {
   subject: string;
   content: string;
   isHtml?: boolean;
+  emailType?: 'newsletter' | 'welcome' | 'blog' | 'contact';
 }
 
 interface BlogNotificationData {
@@ -161,26 +162,61 @@ Unsubscribe: UNSUBSCRIBE_URL
   `.trim();
 }
 
-// Mock email sending function
-// Replace this with your actual email service implementation
-export async function sendNewsletterEmail(emailData: NewsletterEmailData): Promise<boolean> {
-  // This is a mock implementation
-  // In production, replace this with your email service
-  
-  console.log('📧 Newsletter Email (Mock Send):');
-  console.log(`To: ${emailData.to}`);
-  console.log(`Subject: ${emailData.subject}`);
-  console.log(`Content Type: ${emailData.isHtml ? 'HTML' : 'Text'}`);
-  console.log('Content:', emailData.content.substring(0, 200) + '...');
-  
-  // Simulate email sending delay
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
-  // Mock success (in production, handle actual email service response)
-  return true;
+// Send newsletter email using Resend
+export async function sendNewsletterEmail(emailData: NewsletterEmailData & { emailType?: 'newsletter' | 'welcome' | 'blog' | 'contact' }): Promise<boolean> {
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is not configured');
+      return false;
+    }
+
+    // Use different sender addresses for different email types
+    let fromAddress: string;
+    switch (emailData.emailType) {
+      case 'newsletter':
+        fromAddress = 'Raghav Newsletter <newsletter@raghavsingla.tech>';
+        break;
+      case 'blog':
+        fromAddress = 'Raghav Blog <blog@raghavsingla.tech>';
+        break;
+      case 'welcome':
+        fromAddress = 'Raghav <hello@raghavsingla.tech>';
+        break;
+      case 'contact':
+        fromAddress = 'Raghav Portfolio <contact@raghavsingla.tech>';
+        break;
+      default:
+        fromAddress = 'Raghav <info@raghavsingla.tech>';
+    }
+
+    const emailOptions: any = {
+      from: fromAddress,
+      to: emailData.to,
+      subject: emailData.subject,
+    };
+
+    if (emailData.isHtml) {
+      emailOptions.html = emailData.content;
+    } else {
+      emailOptions.text = emailData.content;
+    }
+
+    const response = await resend.emails.send(emailOptions);
+    
+    if (response.error) {
+      console.error('Resend error:', response.error);
+      return false;
+    }
+
+    console.log('✅ Email sent successfully:', response.data?.id);
+    return true;
+  } catch (error) {
+    console.error('Error sending email with Resend:', error);
+    return false;
+  }
 }
 
-// Send blog notification to all subscribers
+// Send blog notification to all active subscribers
 export async function sendBlogNotification(blogData: BlogNotificationData): Promise<{
   success: boolean;
   sent: number;
@@ -188,16 +224,96 @@ export async function sendBlogNotification(blogData: BlogNotificationData): Prom
   errors: string[];
 }> {
   try {
-    // This would typically fetch subscribers from your database
-    // For now, return a mock response
-    console.log('📧 Blog notification would be sent for:', blogData.blogTitle);
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured');
+    }
+
+    await connectDB();
     
-    return {
+    // Get all active subscribers
+    const subscribers = await (Newsletter as any).find({ 
+      status: 'subscribed' 
+    }).lean();
+
+    if (subscribers.length === 0) {
+      console.log('No active subscribers found');
+      return {
+        success: true,
+        sent: 0,
+        failed: 0,
+        errors: []
+      };
+    }
+
+    const results = {
       success: true,
-      sent: 0, // In production, this would be the actual count
+      sent: 0,
       failed: 0,
-      errors: []
+      errors: [] as string[]
     };
+
+    // Send emails in batches to avoid rate limiting
+    const batchSize = 10;
+    for (let i = 0; i < subscribers.length; i += batchSize) {
+      const batch = subscribers.slice(i, i + batchSize);
+      
+      await Promise.all(
+        batch.map(async (subscriber: any) => {
+          try {
+            const htmlContent = generateNewsletterHTML({
+              ...blogData,
+              name: subscriber.name
+            });
+            
+            const textContent = generateNewsletterText({
+              ...blogData,
+              name: subscriber.name
+            });
+
+            // Generate unsubscribe URL
+            const unsubscribeUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/newsletter/unsubscribe?email=${encodeURIComponent(subscriber.email)}`;
+            
+            const finalHtmlContent = htmlContent.replace('UNSUBSCRIBE_URL', unsubscribeUrl);
+            const finalTextContent = textContent.replace('UNSUBSCRIBE_URL', unsubscribeUrl);
+
+            const emailSent = await sendNewsletterEmail({
+              to: subscriber.email,
+              name: subscriber.name,
+              subject: `New Blog Post: ${blogData.blogTitle}`,
+              content: finalHtmlContent,
+              isHtml: true,
+              emailType: 'blog'
+            });
+
+            if (emailSent) {
+              results.sent++;
+              console.log(`✅ Email sent to: ${subscriber.email}`);
+            } else {
+              results.failed++;
+              results.errors.push(`Failed to send to ${subscriber.email}`);
+            }
+          } catch (error) {
+            results.failed++;
+            const errorMsg = `Error sending to ${subscriber.email}: ${error instanceof Error ? error.message : 'Unknown error'}`;
+            results.errors.push(errorMsg);
+            console.error(errorMsg);
+          }
+        })
+      );
+
+      // Add delay between batches to respect rate limits
+      if (i + batchSize < subscribers.length) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+
+    if (results.failed > 0) {
+      results.success = false;
+    }
+
+    console.log(`📧 Blog notification complete: ${results.sent} sent, ${results.failed} failed`);
+    return results;
+
   } catch (error) {
     console.error('Error sending blog notifications:', error);
     return {
@@ -209,48 +325,130 @@ export async function sendBlogNotification(blogData: BlogNotificationData): Prom
   }
 }
 
-// Email service configuration instructions
-export const EMAIL_SERVICE_SETUP = {
-  instructions: `
-To enable email functionality, choose one of these services:
+// Send welcome email to new subscribers
+export async function sendWelcomeEmail(email: string, name?: string): Promise<boolean> {
+  try {
+    const welcomeHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Raghav's Newsletter!</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #ffffff;
+            padding: 30px 20px;
+            border: 1px solid #e1e5e9;
+        }
+        .footer {
+            background: #f7fafc;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #718096;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #e1e5e9;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎉 Welcome to the Newsletter!</h1>
+        ${name ? `<p>Hi ${name},</p>` : '<p>Hi there,</p>'}
+    </div>
+    
+    <div class="content">
+        <p>Thank you for subscribing to my newsletter! I'm excited to have you on board.</p>
+        
+        <p>Here's what you can expect:</p>
+        <ul>
+            <li>📝 New blog posts about web development, programming, and technology</li>
+            <li>💡 Personal insights and lessons learned</li>
+            <li>🚀 Updates on my latest projects and experiments</li>
+            <li>📚 Curated resources and tools I find valuable</li>
+        </ul>
+        
+        <p>I promise to only send you valuable content and never spam your inbox. You can unsubscribe at any time.</p>
+        
+        <p>Feel free to reply to this email if you have any questions or just want to say hi!</p>
+        
+        <p>Best regards,<br>Raghav</p>
+    </div>
+    
+    <div class="footer">
+        <p>
+            <strong>Raghav's Blog</strong><br>
+            Personal insights on technology, development, and career growth
+        </p>
+    </div>
+</body>
+</html>
+    `;
 
-1. SENDGRID (Recommended)
-   - Sign up at https://sendgrid.com/
-   - Get your API key
-   - Add SENDGRID_API_KEY to your environment variables
-   - Install: npm install @sendgrid/mail
+    const welcomeText = `
+Welcome to Raghav's Newsletter!
 
-2. RESEND (Developer-friendly)
-   - Sign up at https://resend.com/
-   - Get your API key
-   - Add RESEND_API_KEY to your environment variables
-   - Install: npm install resend
+${name ? `Hi ${name},` : 'Hi there,'}
 
-3. NODEMAILER (SMTP)
-   - Configure your SMTP settings
-   - Add SMTP_* variables to environment
-   - Install: npm install nodemailer
+Thank you for subscribing to my newsletter! I'm excited to have you on board.
 
-4. AWS SES (Enterprise)
-   - Set up AWS SES
-   - Configure AWS credentials
-   - Install: npm install @aws-sdk/client-ses
+Here's what you can expect:
+- New blog posts about web development, programming, and technology
+- Personal insights and lessons learned
+- Updates on my latest projects and experiments
+- Curated resources and tools I find valuable
 
-Replace the mock functions in this file with your chosen service integration.
-  `,
-  envVariables: {
-    sendgrid: 'SENDGRID_API_KEY=your_sendgrid_api_key',
-    resend: 'RESEND_API_KEY=your_resend_api_key',
-    smtp: `
-SMTP_HOST=your_smtp_host
-SMTP_PORT=587
-SMTP_USER=your_smtp_username
-SMTP_PASS=your_smtp_password
-    `,
-    aws: `
-AWS_ACCESS_KEY_ID=your_access_key
-AWS_SECRET_ACCESS_KEY=your_secret_key
-AWS_REGION=your_region
-    `
+I promise to only send you valuable content and never spam your inbox. You can unsubscribe at any time.
+
+Feel free to reply to this email if you have any questions or just want to say hi!
+
+Best regards,
+Raghav
+
+---
+Raghav's Blog
+Personal insights on technology, development, and career growth
+    `;
+
+    return await sendNewsletterEmail({
+      to: email,
+      name,
+      subject: 'Welcome to Raghav\'s Newsletter! 🎉',
+      content: welcomeHtml,
+      isHtml: true,
+      emailType: 'welcome'
+    });
+  } catch (error) {
+    console.error('Error sending welcome email:', error);
+    return false;
+  }
+}
+
+// Email service status and configuration
+export const EMAIL_SERVICE_STATUS = {
+  provider: 'Resend',
+  configured: !!process.env.RESEND_API_KEY,
+  features: {
+    newsletter: true,
+    blogNotifications: true,
+    welcomeEmails: true,
+    unsubscribe: true
   }
 };

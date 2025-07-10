@@ -94,8 +94,9 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'info@raghavsingla.tech', // Replace with your verified domain
+      from: 'Raghav Portfolio <contact@raghavsingla.tech>', // Specific contact form sender
       to: ['04raghavsingla28@gmail.com'], // Your email where you want to receive messages
+      replyTo: email, // Allow replying directly to the person who sent the message
       subject: `New Portfolio Contact Message from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
