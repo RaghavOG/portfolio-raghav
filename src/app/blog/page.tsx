@@ -39,21 +39,21 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const resolvedSearchParams = await searchParams;
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-800">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="min-h-screen bg-black text-white">
+      <div className="container mx-auto px-4 md:px-12 py-20 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
+        <div className="mb-20">
+          <h1 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
             Blog
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-inter max-w-3xl">
             Explore my thoughts on web development, programming, AI, and technology. 
             Get insights, tutorials, and industry updates.
           </p>
         </div>
 
         {/* Search and Filters */}
-        <div className="mb-8 space-y-6">
+        <div className="mb-12 space-y-6">
           <BlogSearch initialSearch={resolvedSearchParams.search} />
           <BlogCategories selectedCategory={resolvedSearchParams.category} />
         </div>
@@ -72,14 +72,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             <NewsletterSignup />
             
             {/* Popular Tags */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">Popular Tags</h3>
+            <div className="bg-white/5 rounded-lg border border-white/10 p-6">
+              <h3 className="text-xl font-semibold mb-4 text-white font-space-grotesk">Popular Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {['React', 'Next.js', 'TypeScript', 'AI', 'Web Dev', 'Tutorial'].map((tag) => (
                   <a
                     key={tag}
                     href={`/blog?tag=${encodeURIComponent(tag.toLowerCase())}`}
-                    className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
+                    className="px-3 py-1 bg-white/10 text-white/70 rounded-full text-sm hover:bg-white/20 hover:text-white transition-all duration-300 border border-white/10 hover:border-white/20 font-inter"
                   >
                     #{tag}
                   </a>
@@ -88,19 +88,19 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </div>
 
             {/* Recent Posts */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">Recent Posts</h3>
+            <div className="bg-white/5 rounded-lg border border-white/10 p-6">
+              <h3 className="text-xl font-semibold mb-4 text-white font-space-grotesk">Recent Posts</h3>
               <div className="space-y-4">
                 <Suspense fallback={<div className="animate-pulse space-y-3">
                   {[...Array(3)].map((_, i) => (
                     <div key={i} className="space-y-2">
-                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                      <div className="h-4 bg-white/10 rounded w-3/4"></div>
+                      <div className="h-3 bg-white/10 rounded w-1/2"></div>
                     </div>
                   ))}
                 </div>}>
                   {/* This would be populated with actual recent posts */}
-                  <div className="text-gray-500 dark:text-gray-400 text-sm">
+                  <div className="text-white/50 text-sm font-inter">
                     Recent posts will appear here...
                   </div>
                 </Suspense>

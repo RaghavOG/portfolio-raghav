@@ -43,11 +43,11 @@ export default function BlogPost({ blog }: BlogPostProps) {
   if (!mounted) {
     return (
       <div className="animate-pulse">
-        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
-        <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded mb-6"></div>
+        <div className="h-8 bg-white/5 rounded w-3/4 mb-4"></div>
+        <div className="h-64 bg-white/5 rounded mb-6"></div>
         <div className="space-y-4">
           {[...Array(8)].map((_, i) => (
-            <div key={i} className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+            <div key={i} className="h-4 bg-white/5 rounded"></div>
           ))}
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function BlogPost({ blog }: BlogPostProps) {
       <div className="mb-8">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+          className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors font-inter"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Blog
@@ -70,16 +70,16 @@ export default function BlogPost({ blog }: BlogPostProps) {
       {/* Header */}
       <header className="mb-8">
         <div className="mb-4">
-          <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">
+          <span className="inline-block px-3 py-1 bg-blue-500/10 text-blue-300 text-sm font-medium rounded-full border border-blue-400/20 font-inter">
             {blog.category}
           </span>
         </div>
 
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space-grotesk text-white mb-6 leading-tight">
           {blog.title}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400">
+        <div className="flex flex-wrap items-center gap-6 text-white/60 font-inter">
           <div className="flex items-center gap-2">
             <User className="w-4 h-4" />
             <span>{blog.author}</span>
@@ -116,7 +116,7 @@ export default function BlogPost({ blog }: BlogPostProps) {
 
       {/* Excerpt */}
       <div className="mb-8">
-        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed italic border-l-4 border-blue-500 pl-6">
+        <p className="text-lg md:text-xl text-white/80 leading-relaxed italic border-l-4 border-blue-400 pl-6 font-inter">
           {blog.excerpt}
         </p>
       </div>
@@ -129,8 +129,8 @@ export default function BlogPost({ blog }: BlogPostProps) {
 
       {/* Tags */}
       {blog.tags.length > 0 && (
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="mt-8 pt-8 border-t border-white/10">
+          <h3 className="text-lg font-semibold font-space-grotesk text-white mb-4">
             Tags
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -138,7 +138,7 @@ export default function BlogPost({ blog }: BlogPostProps) {
               <Link
                 key={tag}
                 href={`/blog?tag=${encodeURIComponent(tag)}`}
-                className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
+                className="px-3 py-1 bg-white/5 text-white/80 rounded-full text-sm hover:bg-blue-500/20 border border-white/10 transition-colors font-inter"
               >
                 #{tag}
               </Link>

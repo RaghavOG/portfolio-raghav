@@ -70,24 +70,20 @@ export function BlogSection() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-blue-900/10 dark:to-purple-900/10">
-      <div className="container mx-auto px-4">
+    <section className="py-20 px-4 md:px-12 bg-black text-white min-h-screen">
+      <div className="container mx-auto max-w-7xl">
         <motion.div
-          className="text-center mb-16"
+          className="mb-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium mb-4">
-            <BookOpen className="w-4 h-4" />
-            Latest Insights
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
-            From My Blog
+          <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 font-space-grotesk tracking-tight">
+            Latest Posts
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Explore my latest thoughts on web development, programming, and technology. 
+          <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-inter max-w-3xl">
+            Explore my thoughts on web development, AI, and technology. 
             Get insights, tutorials, and industry updates.
           </p>
         </motion.div>
@@ -95,8 +91,8 @@ export function BlogSection() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden animate-pulse">
-                <div className="h-48 bg-gray-200 dark:bg-gray-700"></div>
+              <div key={i} className="bg-white/5 rounded-lg border border-white/10 overflow-hidden animate-pulse">
+                <div className="h-48 bg-white/10"></div>
                 <div className="p-6 space-y-4">
                   <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
                   <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
@@ -124,7 +120,7 @@ export function BlogSection() {
               <motion.article
                 key={post._id}
                 variants={itemVariants}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group"
+                className="bg-white/5 rounded-lg border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 group"
               >
                 <Link href={`/blog/${post.slug}`}>
                   {post.featuredImage ? (
@@ -144,21 +140,21 @@ export function BlogSection() {
 
                   <div className="p-6">
                     <div className="mb-3">
-                      <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">
+                      <span className="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded-full border border-blue-400/20 font-inter">
                         {post.category}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors line-clamp-2 font-space-grotesk">
                       {post.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                    <p className="text-white/70 mb-4 line-clamp-3 font-inter">
                       {post.excerpt}
                     </p>
 
-                    <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-                      <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between text-sm text-white/50">
+                      <div className="flex items-center gap-4 font-inter">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           <span>{formatDate(post.publishedAt)}</span>
@@ -175,7 +171,7 @@ export function BlogSection() {
                         {post.tags.slice(0, 2).map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded"
+                            className="text-xs px-2 py-1 bg-white/10 text-white/60 rounded border border-white/10 font-inter"
                           >
                             #{tag}
                           </span>
@@ -194,15 +190,15 @@ export function BlogSection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400 mb-6">
+            <BookOpen className="w-16 h-16 text-white/30 mx-auto mb-4" />
+            <p className="text-white/50 mb-6 font-inter">
               No blog posts available yet. Check back soon for exciting content!
             </p>
           </motion.div>
         )}
 
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -210,7 +206,7 @@ export function BlogSection() {
         >
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:bg-white/90 font-inter"
           >
             View All Posts
             <ArrowRight className="w-5 h-5" />

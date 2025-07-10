@@ -96,22 +96,22 @@ function AdminLayoutContent({
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-black">
         {/* Session expiry warning */}
         {sessionInfo.isExpiringSoon && (
-          <div className="bg-yellow-600 text-white px-4 py-2 text-center text-sm">
+          <div className="bg-yellow-600 text-white px-4 py-2 text-center text-sm font-inter">
             <Clock className="inline h-4 w-4 mr-1" />
             Session expires in {formatTimeRemaining(sessionInfo.timeUntilExpiry)}. Save your work.
           </div>
         )}
 
         {/* Sidebar */}
-        <div className="fixed inset-y-0 left-0 w-64 bg-gray-800 border-r border-gray-700">
+        <div className="fixed inset-y-0 left-0 w-64 bg-black border-r border-white/10">
           <div className="flex flex-col h-full">
             {/* Header */}
-            <div className="p-6 border-b border-gray-700">
-              <h1 className="text-xl font-bold text-white">Control Panel</h1>
-              <p className="text-sm text-gray-400 mt-1">Portfolio Admin</p>
+            <div className="p-6 border-b border-white/10">
+              <h1 className="text-xl font-bold text-white font-space-grotesk">Control Panel</h1>
+              <p className="text-sm text-white/60 mt-1 font-inter">Portfolio Admin</p>
             </div>
 
             {/* Navigation */}
@@ -122,10 +122,10 @@ function AdminLayoutContent({
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-300 font-inter ${
                       item.current
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                        ? 'bg-white/10 text-white border border-white/20'
+                        : 'text-white/70 hover:bg-white/5 hover:text-white border border-transparent hover:border-white/10'
                     }`}
                   >
                     <Icon className="h-5 w-5" />
@@ -136,10 +136,10 @@ function AdminLayoutContent({
             </nav>
 
             {/* Footer */}
-            <div className="p-4 border-t border-gray-700 space-y-2">
+            <div className="p-4 border-t border-white/10 space-y-2">
               <Link
                 href="/"
-                className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors"
+                className="flex items-center gap-3 px-3 py-3 text-white/70 hover:bg-white/5 hover:text-white rounded-lg transition-all duration-300 border border-transparent hover:border-white/10 font-inter"
               >
                 <Home className="h-5 w-5" />
                 View Portfolio
@@ -147,7 +147,7 @@ function AdminLayoutContent({
               <Button
                 onClick={handleLogout}
                 variant="ghost"
-                className="w-full justify-start gap-3 text-gray-300 hover:bg-gray-700 hover:text-white"
+                className="w-full justify-start gap-3 text-white/70 hover:bg-white/5 hover:text-white border border-transparent hover:border-white/10 font-inter"
               >
                 <LogOut className="h-5 w-5" />
                 Sign Out
@@ -158,7 +158,7 @@ function AdminLayoutContent({
 
         {/* Main content */}
         <div className="ml-64">
-          <main className="p-8">
+          <main className="p-8 bg-black min-h-screen">
             {children}
           </main>
           

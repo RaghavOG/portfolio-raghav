@@ -104,10 +104,10 @@ export default function ContactsPage() {
     return (
       <div className="text-white">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-700 rounded w-64"></div>
-          <div className="h-12 bg-gray-700 rounded"></div>
+          <div className="h-8 bg-white/5 rounded w-64"></div>
+          <div className="h-12 bg-white/5 rounded"></div>
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-32 bg-gray-700 rounded"></div>
+            <div key={i} className="h-32 bg-white/5 rounded"></div>
           ))}
         </div>
       </div>
@@ -117,21 +117,21 @@ export default function ContactsPage() {
   return (
     <div className="text-white">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Contact Messages</h1>
-        <p className="text-gray-400">Manage and respond to portfolio inquiries</p>
+        <h1 className="text-3xl font-bold font-space-grotesk text-white mb-2">Contact Messages</h1>
+        <p className="text-white/70 font-inter">Manage and respond to portfolio inquiries</p>
       </div>
 
       {/* Filters */}
-      <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 mb-6">
+      <div className="bg-white/5 border border-white/10 rounded-lg p-6 mb-6 backdrop-blur-sm">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
               <Input
                 placeholder="Search by name, email, or message..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
+                className="pl-10 bg-white/5 border-white/20 text-white placeholder:text-white/50 font-inter focus:border-white/40"
               />
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function ContactsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white"
+              className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white font-inter focus:border-white/40 focus:outline-none"
             >
               <option value="all">All Status</option>
               <option value="pending">Pending</option>
@@ -154,21 +154,21 @@ export default function ContactsPage() {
       <div className="space-y-4">
         {filteredContacts.length > 0 ? (
           filteredContacts.map((contact) => (
-            <div key={contact._id} className="bg-gray-800 border border-gray-700 rounded-lg p-6">
+            <div key={contact._id} className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-semibold text-white text-lg">{contact.name}</h3>
+                    <h3 className="font-semibold text-white text-lg font-space-grotesk">{contact.name}</h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(contact.status)}`}>
                       {contact.status}
                     </span>
                     {contact.emailSent && (
-                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-400/10 text-blue-400 border border-blue-400/20">
+                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-400/10 text-blue-300 border border-blue-400/20">
                         Email Sent
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
+                  <div className="flex items-center gap-4 text-sm text-white/60 mb-3 font-inter">
                     <div className="flex items-center gap-1">
                       <Mail className="h-4 w-4" />
                       <a href={`mailto:${contact.email}`} className="hover:text-white transition-colors">
@@ -187,7 +187,7 @@ export default function ContactsPage() {
                       onClick={() => updateContactStatus(contact._id, 'read')}
                       variant="outline"
                       size="sm"
-                      className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                      className="border-white/20 text-white/80 hover:bg-white/10 font-inter"
                     >
                       Mark as Read
                     </Button>
@@ -197,14 +197,14 @@ export default function ContactsPage() {
                       onClick={() => updateContactStatus(contact._id, 'replied')}
                       variant="outline"
                       size="sm"
-                      className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                      className="border-white/20 text-white/80 hover:bg-white/10 font-inter"
                     >
                       Mark as Replied
                     </Button>
                   )}
                   <a
                     href={`mailto:${contact.email}?subject=Re: Portfolio Contact&body=Hi ${contact.name},%0A%0AThank you for reaching out!%0A%0A`}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors font-inter"
                   >
                     <ExternalLink className="h-3 w-3" />
                     Reply
@@ -212,20 +212,20 @@ export default function ContactsPage() {
                 </div>
               </div>
 
-              <div className="bg-gray-900 border border-gray-600 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-gray-300 mb-2">Message:</h4>
-                <p className="text-white whitespace-pre-wrap leading-relaxed">{contact.message}</p>
+              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                <h4 className="text-sm font-medium text-white/80 mb-2 font-inter">Message:</h4>
+                <p className="text-white whitespace-pre-wrap leading-relaxed font-inter">{contact.message}</p>
               </div>
 
-              <div className="mt-4 text-xs text-gray-500">
+              <div className="mt-4 text-xs text-white/40 font-inter">
                 <p>IP: {contact.ipAddress} • User Agent: {contact.userAgent}</p>
               </div>
             </div>
           ))
         ) : (
           <div className="text-center py-12">
-            <Mail className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-400 text-lg">No messages found</p>
+            <Mail className="h-16 w-16 text-white/20 mx-auto mb-4" />
+            <p className="text-white/60 text-lg font-inter">No messages found</p>
           </div>
         )}
       </div>
@@ -237,18 +237,18 @@ export default function ContactsPage() {
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
             variant="outline"
-            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            className="border-white/20 text-white/80 hover:bg-white/10 font-inter"
           >
             Previous
           </Button>
-          <span className="px-4 py-2 text-gray-400">
+          <span className="px-4 py-2 text-white/70 font-inter">
             Page {currentPage} of {totalPages}
           </span>
           <Button
             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
             variant="outline"
-            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            className="border-white/20 text-white/80 hover:bg-white/10 font-inter"
           >
             Next
           </Button>

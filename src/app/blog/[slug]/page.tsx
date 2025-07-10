@@ -139,7 +139,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-800">
+      <div className="min-h-screen bg-black">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <Suspense fallback={<LoadingSpinner />}>
             <BlogPost blog={blog} />
