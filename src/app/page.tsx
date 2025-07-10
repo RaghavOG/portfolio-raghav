@@ -73,9 +73,9 @@ export default function Home() {
         <section id="terminal">
           <TerminalSection />
         </section>
-        <section id="blog">
+        {/* <section id="blog">
           <BlogSection />
-        </section>
+        </section> */}
         <section id="contact">
           <ContactSection />
         </section>

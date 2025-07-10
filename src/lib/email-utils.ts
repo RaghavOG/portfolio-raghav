@@ -33,24 +33,38 @@ export function generateNewsletterHTML(data: BlogNotificationData & { name?: str
     <title>New Blog Post - ${data.blogTitle}</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #333333;
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 30px 20px;
             text-align: center;
-            border-radius: 10px 10px 0 0;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 16px;
         }
         .content {
-            background: #ffffff;
             padding: 30px 20px;
-            border: 1px solid #e1e5e9;
         }
         .blog-image {
             width: 100%;
@@ -58,79 +72,127 @@ export function generateNewsletterHTML(data: BlogNotificationData & { name?: str
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 20px;
+            border: 1px solid #e9ecef;
         }
         .blog-title {
             font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            font-weight: 700;
+            margin: 0 0 15px 0;
             color: #2d3748;
+            line-height: 1.3;
         }
         .blog-excerpt {
             color: #4a5568;
-            margin-bottom: 25px;
+            margin: 0 0 25px 0;
             line-height: 1.6;
+            font-size: 16px;
+        }
+        .cta-container {
+            text-align: center;
+            margin: 30px 0;
         }
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 30px;
+            color: white !important;
+            padding: 14px 32px;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 6px;
             font-weight: 600;
-            margin-bottom: 30px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+        .personal-note {
+            background-color: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 16px 20px;
+            margin: 25px 0;
+            border-radius: 0 4px 4px 0;
         }
         .footer {
-            background: #f7fafc;
-            padding: 20px;
+            background: #f8f9fa;
+            padding: 25px 20px;
             text-align: center;
             font-size: 14px;
-            color: #718096;
-            border-radius: 0 0 10px 10px;
-            border: 1px solid #e1e5e9;
-            border-top: none;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+        .footer-brand {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .footer-description {
+            margin-bottom: 16px;
+            color: #6c757d;
+        }
+        .unsubscribe-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e9ecef;
         }
         .unsubscribe {
-            color: #a0aec0;
+            color: #868e96;
             text-decoration: none;
             font-size: 12px;
+        }
+        .unsubscribe:hover {
+            color: #495057;
+            text-decoration: underline;
         }
         @media (max-width: 600px) {
             body { padding: 10px; }
             .header, .content { padding: 20px 15px; }
             .blog-title { font-size: 20px; }
+            .cta-button { padding: 12px 24px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>📝 New Blog Post!</h1>
-        ${data.name ? `<p>Hi ${data.name},</p>` : '<p>Hi there,</p>'}
-        <p>I've just published a new blog post that I think you'll enjoy.</p>
-    </div>
-    
-    <div class="content">
-        ${data.blogFeaturedImage ? `<img src="${data.blogFeaturedImage}" alt="${data.blogTitle}" class="blog-image">` : ''}
+    <div class="container">
+        <div class="header">
+            <h1>New Blog Post Published</h1>
+            ${data.name ? `<p>Hi ${data.name},</p>` : '<p>Hi there,</p>'}
+            <p>I've just published a new article I think you'll find interesting.</p>
+        </div>
         
-        <h2 class="blog-title">${data.blogTitle}</h2>
+        <div class="content">
+            ${data.blogFeaturedImage ? `<img src="${data.blogFeaturedImage}" alt="${data.blogTitle}" class="blog-image">` : ''}
+            
+            <h2 class="blog-title">${data.blogTitle}</h2>
+            
+            <p class="blog-excerpt">${data.blogExcerpt}</p>
+            
+            <div class="cta-container">
+                <a href="${data.blogUrl}" class="cta-button">Read Full Article</a>
+            </div>
+            
+            <div class="personal-note">
+                <p style="margin: 0; color: #4a5568; font-size: 14px;">
+                    <strong>Personal note:</strong> Thank you for being part of my newsletter community. I share insights about technology, development, and career growth that I hope you'll find valuable.
+                </p>
+            </div>
+        </div>
         
-        <p class="blog-excerpt">${data.blogExcerpt}</p>
-        
-        <a href="${data.blogUrl}" class="cta-button">Read Full Post →</a>
-        
-        <p style="color: #718096; font-size: 14px;">
-            Thanks for being part of my newsletter community! I hope you find this post valuable.
-        </p>
-    </div>
-    
-    <div class="footer">
-        <p>
-            <strong>Raghav's Blog</strong><br>
-            Personal insights on technology, development, and career growth
-        </p>
-        <p>
-            <a href="UNSUBSCRIBE_URL" class="unsubscribe">Unsubscribe from these emails</a>
-        </p>
+        <div class="footer">
+            <div class="footer-brand">Raghav Singla</div>
+            <div class="footer-description">Full-stack Developer & AI Enthusiast</div>
+            <p style="margin: 0; font-size: 13px;">
+                You're receiving this because you subscribed to my newsletter at raghavsingla.tech
+            </p>
+            
+            <div class="unsubscribe-section">
+                <a href="UNSUBSCRIBE_URL" class="unsubscribe">Unsubscribe from future emails</a>
+                <br>
+                <span style="font-size: 11px; color: #adb5bd;">
+                    Raghav Singla • raghavsingla.tech
+                </span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
@@ -140,23 +202,25 @@ export function generateNewsletterHTML(data: BlogNotificationData & { name?: str
 // Generate plain text version
 export function generateNewsletterText(data: BlogNotificationData & { name?: string }): string {
   return `
-New Blog Post: ${data.blogTitle}
+${data.blogTitle}
 
 ${data.name ? `Hi ${data.name},` : 'Hi there,'}
 
-I've just published a new blog post that I think you'll enjoy.
-
-${data.blogTitle}
+I've just published a new article I think you'll find interesting.
 
 ${data.blogExcerpt}
 
-Read the full post: ${data.blogUrl}
-
-Thanks for being part of my newsletter community!
+Read the full article here: ${data.blogUrl}
 
 ---
-Raghav's Blog
-Personal insights on technology, development, and career growth
+
+Personal note: Thank you for being part of my newsletter community. I share insights about technology, development, and career growth that I hope you'll find valuable.
+
+Best regards,
+Raghav Singla
+Full-stack Developer & AI Enthusiast
+
+You're receiving this because you subscribed to my newsletter at raghavsingla.tech
 
 Unsubscribe: UNSUBSCRIBE_URL
   `.trim();
@@ -193,10 +257,27 @@ export async function sendNewsletterEmail(emailData: NewsletterEmailData & { ema
       from: fromAddress,
       to: emailData.to,
       subject: emailData.subject,
+      // Add headers to improve deliverability
+      headers: {
+        'List-Unsubscribe': '<mailto:unsubscribe@raghavsingla.tech>',
+        'List-Id': 'Raghav Singla Newsletter <newsletter.raghavsingla.tech>',
+        'Precedence': 'bulk',
+        'X-Auto-Response-Suppress': 'OOF, DR, NDR, RN, NRN',
+        'X-Entity-Ref-ID': 'raghav-newsletter'
+      },
+      // Add tags for better tracking and reputation
+      tags: [
+        {
+          name: 'category',
+          value: emailData.emailType || 'newsletter'
+        }
+      ]
     };
 
     if (emailData.isHtml) {
       emailOptions.html = emailData.content;
+      // Always include a text version to improve deliverability
+      emailOptions.text = emailData.content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
     } else {
       emailOptions.text = emailData.content;
     }

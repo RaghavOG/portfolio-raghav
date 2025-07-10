@@ -19,8 +19,7 @@ export async function POST(request: NextRequest) {
 
     // Get all active newsletter subscribers
     const subscribers = await (Newsletter as any).find({ 
-      status: 'subscribed',
-      confirmedAt: { $exists: true } 
+      status: 'subscribed'
     }).select('email name subscribedAt');
 
     if (!sendEmails) {
@@ -33,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Prepare email data
-    const emailSubject = `New Post: ${blogData.title}`;
+    const emailSubject = `${blogData.blogTitle} - New Article from Raghav`;
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     const blogUrl = `${baseUrl}/blog/${blogData.slug}`;
     const unsubscribeBaseUrl = `${baseUrl}/api/newsletter/unsubscribe`;
@@ -42,9 +41,14 @@ export async function POST(request: NextRequest) {
     let failedCount = 0;
     const errors: string[] = [];
 
-    // Send emails to all subscribers
-    for (const subscriber of subscribers) {
+    // Send emails to all subscribers with rate limiting to avoid spam filters
+    for (let i = 0; i < subscribers.length; i++) {
+      const subscriber = subscribers[i];
       try {
+        // Add delay between emails to avoid rate limiting (only for batches > 10)
+        if (i > 0 && subscribers.length > 10) {
+          await new Promise(resolve => setTimeout(resolve, 100)); // 100ms delay
+        }
         const unsubscribeUrl = `${unsubscribeBaseUrl}?email=${encodeURIComponent(subscriber.email)}&token=${generateUnsubscribeToken(subscriber.email)}`;
         
         const emailData = {
@@ -69,7 +73,8 @@ export async function POST(request: NextRequest) {
           to: subscriber.email,
           subject: emailSubject,
           content: htmlContent,
-          isHtml: true
+          isHtml: true,
+          emailType: 'blog'
         });
 
         if (emailSent) {
@@ -119,8 +124,7 @@ export async function GET() {
     await connectDB();
     
     const subscriberCount = await (Newsletter as any).countDocuments({ 
-      status: 'subscribed',
-      confirmedAt: { $exists: true } 
+      status: 'subscribed'
     });
 
     return NextResponse.json({

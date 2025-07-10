@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Save, Eye, Upload, X } from 'lucide-react';
+import { Save, Eye, Upload, X, Mail, CheckCircle, AlertCircle } from 'lucide-react';
 import { BLOG_CATEGORIES } from '@/lib/blog-utils';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 import MarkdownRenderer from '@/components/blog/MarkdownRenderer';
@@ -33,6 +33,10 @@ export default function BlogEditor({ blogData }: BlogEditorProps) {
   const [saving, setSaving] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const [tagInput, setTagInput] = useState('');
+  const [sendNewsletterNotification, setSendNewsletterNotification] = useState(false);
+  const [notificationStatus, setNotificationStatus] = useState<string>('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showNewsletterPreview, setShowNewsletterPreview] = useState(false);
 
   const [formData, setFormData] = useState<BlogData>({
     title: '',
@@ -91,6 +95,103 @@ export default function BlogEditor({ blogData }: BlogEditorProps) {
       e.preventDefault();
       handleAddTag();
     }
+  };
+
+  const renderNewsletterPreview = () => {
+    if (!showNewsletterPreview) return null;
+
+    const previewData = {
+      blogTitle: formData.title || 'Your Blog Title',
+      blogExcerpt: formData.excerpt || 'Your blog excerpt will appear here...',
+      blogUrl: `${typeof window !== 'undefined' ? window.location.origin : ''}/blog/${formData.slug || 'blog-slug'}`,
+      blogFeaturedImage: formData.featuredImage
+    };
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Newsletter Preview
+              </h3>
+              <button
+                onClick={() => setShowNewsletterPreview(false)}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Email Preview */}
+            <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-gray-50 dark:bg-gray-900">
+              <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                  New Blog Post Published!
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
+                  We thought you'd be interested in our latest post
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 mb-6">
+                {previewData.blogFeaturedImage && (
+                  <img
+                    src={previewData.blogFeaturedImage}
+                    alt={previewData.blogTitle}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                )}
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  {previewData.blogTitle}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  {previewData.blogExcerpt}
+                </p>
+                <a
+                  href={previewData.blogUrl}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Read Full Article
+                </a>
+              </div>
+
+              <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+                <p>Thank you for subscribing to our newsletter!</p>
+                <p className="mt-2">
+                  <a href="#" className="text-blue-600 dark:text-blue-400 hover:underline">
+                    Unsubscribe
+                  </a> | 
+                  <a href="#" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">
+                    Update Preferences
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowNewsletterPreview(false)}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  setShowNewsletterPreview(false);
+                  handleSave('published');
+                }}
+                disabled={saving}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                {saving ? 'Publishing...' : 'Publish & Send'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   const validateForm = () => {
@@ -152,8 +253,59 @@ export default function BlogEditor({ blogData }: BlogEditorProps) {
 
       const savedBlog = await response.json();
       
-      // Redirect to blog list or show success message
-      router.push('/control-panel/blogs');
+      // Send newsletter notification if publishing and option is checked
+      if (finalStatus === 'published' && sendNewsletterNotification) {
+        setNotificationStatus('Sending newsletter...');
+        try {
+          const notificationResponse = await fetch('/api/newsletter/notify', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              blogData: {
+                blogTitle: savedBlog.title,
+                blogExcerpt: savedBlog.excerpt,
+                blogUrl: `${window.location.origin}/blog/${savedBlog.slug}`,
+                blogFeaturedImage: savedBlog.featuredImage
+              },
+              sendEmails: true
+            }),
+          });
+
+          if (notificationResponse.ok) {
+            const notificationResult = await notificationResponse.json();
+            setNotificationStatus(`Newsletter sent to ${notificationResult.result?.sent || 0} subscribers!`);
+            setShowSuccessMessage(true);
+            setTimeout(() => {
+              setNotificationStatus('');
+              setShowSuccessMessage(false);
+            }, 5000);
+          } else {
+            setNotificationStatus('Newsletter sending failed');
+            setTimeout(() => setNotificationStatus(''), 3000);
+          }
+        } catch (notificationError) {
+          console.error('Newsletter notification error:', notificationError);
+          setNotificationStatus('Newsletter sending failed');
+          setTimeout(() => setNotificationStatus(''), 3000);
+        }
+      } else {
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+      }
+      
+      // Only redirect if we're not sending newsletter (to show status)
+      if (!(finalStatus === 'published' && sendNewsletterNotification)) {
+        setTimeout(() => {
+          router.push('/control-panel/blogs');
+        }, 1500);
+      } else {
+        // Redirect after showing newsletter status
+        setTimeout(() => {
+          router.push('/control-panel/blogs');
+        }, 3000);
+      }
     } catch (error) {
       console.error('Error saving blog:', error);
       alert(error instanceof Error ? error.message : 'Failed to save blog post');
@@ -235,6 +387,48 @@ export default function BlogEditor({ blogData }: BlogEditorProps) {
 
   return (
     <div className="space-y-6">
+      {/* Success and Status Messages */}
+      {showSuccessMessage && (
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+          <div className="flex items-center">
+            <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mr-3" />
+            <div>
+              <h3 className="text-sm font-medium text-green-800 dark:text-green-200">
+                Blog post saved successfully!
+              </h3>
+              {notificationStatus && (
+                <p className="text-sm text-green-700 dark:text-green-300 mt-1">
+                  {notificationStatus}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {notificationStatus && !showSuccessMessage && (
+        <div className={`border rounded-lg p-4 ${
+          notificationStatus.includes('failed') 
+            ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800' 
+            : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
+        }`}>
+          <div className="flex items-center">
+            {notificationStatus.includes('failed') ? (
+              <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-3" />
+            ) : (
+              <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3" />
+            )}
+            <p className={`text-sm ${
+              notificationStatus.includes('failed')
+                ? 'text-red-800 dark:text-red-200'
+                : 'text-blue-800 dark:text-blue-200'
+            }`}>
+              {notificationStatus}
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Action Buttons */}
       <div className="flex flex-wrap items-center gap-4 justify-between">
         <div className="flex flex-wrap gap-2">
@@ -248,12 +442,28 @@ export default function BlogEditor({ blogData }: BlogEditorProps) {
           </button>
           
           <button
-            onClick={() => handleSave('published')}
+            onClick={() => {
+              if (sendNewsletterNotification && !saving) {
+                setShowNewsletterPreview(true);
+              } else {
+                handleSave('published');
+              }
+            }}
             disabled={saving}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className={`inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors ${
+              sendNewsletterNotification ? 'bg-blue-600 ring-2 ring-blue-300 dark:ring-blue-500' : 'bg-blue-600'
+            }`}
           >
-            <Upload className="w-4 h-4" />
-            {saving ? 'Publishing...' : 'Publish'}
+            {sendNewsletterNotification ? (
+              <Mail className="w-4 h-4" />
+            ) : (
+              <Upload className="w-4 h-4" />
+            )}
+            {saving ? (
+              notificationStatus.includes('Sending') ? 'Sending Newsletter...' : 'Publishing...'
+            ) : (
+              sendNewsletterNotification ? 'Preview & Publish' : 'Publish'
+            )}
           </button>
           
           <button
@@ -410,6 +620,45 @@ export default function BlogEditor({ blogData }: BlogEditorProps) {
                   />
                 </div>
               )}
+
+              {/* Newsletter Notification Option */}
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      id="sendNewsletter"
+                      checked={sendNewsletterNotification}
+                      onChange={(e) => setSendNewsletterNotification(e.target.checked)}
+                      className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <div className="flex-1">
+                      <label htmlFor="sendNewsletter" className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer">
+                        <div className="flex items-center gap-2">
+                          <Mail className="w-4 h-4" />
+                          Send newsletter notification
+                        </div>
+                      </label>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        Notify all newsletter subscribers when this post is published
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {sendNewsletterNotification && (
+                    <div className="ml-7">
+                      <button
+                        type="button"
+                        onClick={() => setShowNewsletterPreview(true)}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+                      >
+                        <Eye className="w-3 h-3" />
+                        Preview Email
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -527,6 +776,9 @@ export default function BlogEditor({ blogData }: BlogEditorProps) {
           </div>
         </div>
       </div>
+
+      {/* Newsletter Preview Modal */}
+      {renderNewsletterPreview()}
     </div>
   );
 }
